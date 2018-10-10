@@ -37,7 +37,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 if(result.role === 'admin') {
                     this.props.history.push('/admin');
                 } else {
-                    this.props.history.push('/');
+                    this.props.history.push('/dashboard');
                 }
             } else {
                 this.setState({ loginFailed: true });

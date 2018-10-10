@@ -47,7 +47,7 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                     this.state
                 );
                 SetAccessToken(token);
-                this.props.history.push('/');
+                this.props.history.push('/dashboard');
             } catch (e) {
                 console.log(e);
             } finally {
