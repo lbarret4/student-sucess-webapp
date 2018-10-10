@@ -1,6 +1,6 @@
 import * as fetch from 'isomorphic-fetch';
 
-export let AccessToken:string = localStorage.getItem('token') || null;
+export let AccessToken: string = localStorage.getItem('token') || null;
 export let User: any = {
     userid: localStorage.getItem('userid') || null,
     role: localStorage.getItem('role') || null
@@ -12,7 +12,7 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
         'Content-Type': 'application/json'
     }
 
-    if(AccessToken) {
+    if (AccessToken) {
         headers['Authorization'] = `Bearer ${AccessToken}`;
     }
 
@@ -22,12 +22,12 @@ export const json = async <T = any>(uri: string, method: string = 'GET', body?: 
             headers,
             body: JSON.stringify(body)
         });
-        if(result.ok) {
+        if (result.ok) {
             return <T>(await result.json());
         } else {
             return false;
         }
-    } catch(e) {
+    } catch (e) {
         console.log(e);
         throw e;
     }
@@ -40,6 +40,15 @@ export const SetAccessToken = (token: string, user: {} = { userid: undefined, ro
     localStorage.setItem('token', token);
     localStorage.setItem('role', User.role);
     localStorage.setItem('userid', User.userid);
+}
+
+export const ClearAccessToken = () => {
+    AccessToken = null;
+    User = { userid: null, role: null };  
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userid');      
 }
 
 export default json;
