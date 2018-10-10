@@ -51,4 +51,19 @@ export const ClearAccessToken = () => {
     localStorage.removeItem('userid');      
 }
 
+export const isLoggedIn= (role?:string)=>{
+    if(role){
+        return (AccessToken != null && User.role == role);
+    }
+return AccessToken != null;
+}
+
+/*  Test scripts 
+console.log('print access token');
+console.log(isLoggedIn());
+console.log('guest',isLoggedIn('guest'));
+console.log('admin',isLoggedIn('admin'));
+console.log("clear",ClearAccessToken());
+console.log(isLoggedIn()); */
+
 export default json;

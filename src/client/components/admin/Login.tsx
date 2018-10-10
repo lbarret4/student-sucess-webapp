@@ -85,7 +85,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                             </div>
                             <div className="form-row">
                                 <div className="col">
-                                    <Link to="/register">Create Account</Link>
+                                    Don't have an account? <Link to="/register">Register here</Link>
                                 </div>
                             </div>
                         </form>
