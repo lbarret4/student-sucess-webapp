@@ -2,3 +2,6 @@ node_modules
 dist
 src/server/config/development.ts
 .vscode
+public/js/app.js
+public/css/styles.css
+public/css/styles.min.css

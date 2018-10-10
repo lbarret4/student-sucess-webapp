@@ -8,6 +8,7 @@ import Login from './admin/Login';
 import Register from './admin/Register';
 import Compose from './admin/Compose';
 import Footer from './shared/Footer';
+import PrivateRoute from './admin/privateRoute';
 
 export default class App extends React.Component {
     render() {
@@ -19,7 +20,7 @@ export default class App extends React.Component {
                 <Route path="/blog/:blogId" component={Blog} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
-                <Route exact path="/admin" component={Compose} />
+                <PrivateRoute exact path="/admin" component={Compose} />
                 <Footer></Footer>
                 </>
             </Router>
