@@ -19,8 +19,7 @@ export default () => {
 
 export interface IQueryGetCommitNumberAuthors {
     id: number;
-    title: string;
-    publishedts: Date;
-    firstname: string;
-    lastname: string;
+    github_link: string;
+    number_commits: number;
+    check_date: Date;
 }
