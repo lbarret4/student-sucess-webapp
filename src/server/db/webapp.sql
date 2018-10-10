@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Commits`
+--
+
+DROP TABLE IF EXISTS `Commits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Commits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number_commits` int(11) NOT NULL,
+  `github_id` int(11) NOT NULL,
+  `check_date` datetime NOT NULL,
+  `_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_github_idx` (`github_id`),
+  CONSTRAINT `fk_github` FOREIGN KEY (`github_id`) REFERENCES `github` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Commits`
+--
+
+LOCK TABLES `Commits` WRITE;
+/*!40000 ALTER TABLE `Commits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Commits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `blogs`
 --
 
@@ -86,6 +114,7 @@ CREATE TABLE `interviews` (
   `phone` varchar(45) NOT NULL,
   `address` varchar(45) NOT NULL,
   `interview_date` datetime NOT NULL,
+  `scheduled_int` tinyint(4) DEFAULT NULL,
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
@@ -97,8 +126,36 @@ CREATE TABLE `interviews` (
 
 LOCK TABLES `interviews` WRITE;
 /*!40000 ALTER TABLE `interviews` DISABLE KEYS */;
-INSERT INTO `interviews` VALUES (2,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:08:41'),(3,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(4,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(5,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(6,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(7,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(8,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(9,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35'),(10,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00','2018-10-08 19:11:35');
+INSERT INTO `interviews` VALUES (2,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:08:41'),(3,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(4,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(5,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(6,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(7,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(8,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(9,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(10,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35');
 /*!40000 ALTER TABLE `interviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tokens`
+--
+
+DROP TABLE IF EXISTS `tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tokens` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `token` varchar(60) NOT NULL,
+  `expires` datetime DEFAULT NULL,
+  `_created` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_userid_idx` (`userid`),
+  CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tokens`
+--
+
+LOCK TABLES `tokens` WRITE;
+/*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -114,6 +171,10 @@ CREATE TABLE `users` (
   `last_name` varchar(45) NOT NULL,
   `email` varchar(320) NOT NULL,
   `password` varchar(45) NOT NULL,
+  `user_role` varchar(45) DEFAULT 'Guest',
+  `dob` varchar(45) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `state` varchar(45) NOT NULL,
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -125,7 +186,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Michael','Stringer','michael@test.com','password123','2018-10-08 13:49:21'),(3,'Richard','Garner','richard@test.com','password123','2018-10-08 18:50:14'),(4,'Llewellyn','Barrett','llewellyn@test.com','password123','2018-10-08 18:50:14');
+INSERT INTO `users` VALUES (1,'Michael','Stringer','michael@test.com','password123','Guest','','','','2018-10-08 13:49:21'),(3,'Richard','Garner','richard@test.com','password123','Guest','','','','2018-10-08 18:50:14'),(4,'Llewellyn','Barrett','llewellyn@test.com','password123','Guest','','','','2018-10-08 18:50:14');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,4 +203,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-09 10:36:07
+-- Dump completed on 2018-10-10 14:55:46
