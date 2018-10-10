@@ -10,6 +10,7 @@ import Compose from './admin/Compose';
 import Footer from './shared/Footer';
 import PrivateRoute from './admin/privateRoute';
 import Logout from './admin/Logout';
+import Dashbord from './admin/Dashboard';
 
 export default class App extends React.Component {
     render() {
@@ -19,6 +20,7 @@ export default class App extends React.Component {
                 <Navbar></Navbar>
                 <Route exact path="/" component={Home} />
                 <Route path="/blog/:blogId" component={Blog} />
+                <PrivateRoute exact path= "/dashboard" component={Dashbord} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/logout" component={Logout} />
                 <Route exact path="/register" component={Register} />
