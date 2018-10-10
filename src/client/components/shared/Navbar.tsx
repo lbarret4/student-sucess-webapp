@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { isLoggedIn} from '../../utils/api';
 
 export default class Navbar extends React.Component {
+ 
+    
     render() {
+
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                 <Link to="/" className="navbar-brand" href="#">Covalence Student Success App</Link>
@@ -15,7 +19,7 @@ export default class Navbar extends React.Component {
                             <Link to="/" className="nav-link" href="#">Home <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/login" className="btn btn-success" href="#">Login</Link>
+                            { isLoggedIn()? <Link to="/logout" className="btn btn-success" href="#">Logout</Link>:<Link to="/login" id="Login" className="btn btn-success" href="#">Login</Link> }
                         </li>
                     </ul>
                 </div>
@@ -23,3 +27,4 @@ export default class Navbar extends React.Component {
         );
     }
 }
+
