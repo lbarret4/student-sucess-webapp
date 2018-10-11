@@ -111,6 +111,11 @@ export const Services = new Table<IServices>(pool, 'services', {
     service_type: mysql.Types.VARCHAR
 });
 
+export interface IServices {
+    id?: number;
+    service_type?: string;
+};
+
 export interface IGithub {
     id?: number;
     service_type?: string;
