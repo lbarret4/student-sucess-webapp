@@ -3,11 +3,13 @@ import Table from 'tablecrud';
 
 import pool from './pool';
 import GetBlogsAuthors from './queries/GetBlogsAuthors';
-import GetCommitNumberAuthors from './queries/GetCommitNumberAuthors';
+import GetCommitNum from './queries/GetCommitNum';
+import GetInterviewResults from './queries/GetInterviewResults';
 
 export const Queries = {
     GetBlogsAuthors,
-    GetCommitNumberAuthors    
+    GetCommitNum,
+    GetInterviewResults    
 }
 
 export const Blogs = new Table<IBlog>(pool, 'blogs', {
@@ -102,4 +104,28 @@ export interface IGithub {
     userid?: number;
     github_link?: string;
     _created?: Date;
-}
+};
+
+export const Services = new Table<IServices>(pool, 'services', {
+    id: mysql.Types.INT24,
+    service_type: mysql.Types.VARCHAR
+});
+
+export interface IGithub {
+    id?: number;
+    service_type?: string;
+};
+
+export const CareerServices = new Table<ICareerServices>(pool, 'career_services', {
+    id: mysql.Types.INT24,
+    userid: mysql.Types.INT24,
+    service_type: mysql.Types.INT24,
+    _created: mysql.Types.DATETIME
+});
+
+export interface ICareerServices {
+    id?: number;
+    userid?: number;
+    service_type?: number;
+    _created?: Date;
+};
