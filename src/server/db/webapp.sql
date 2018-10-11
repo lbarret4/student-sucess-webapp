@@ -72,6 +72,33 @@ INSERT INTO `blogs` VALUES (1,1,'heroku-link.com','2018-10-08 18:53:48'),(2,3,'h
 UNLOCK TABLES;
 
 --
+-- Table structure for table `career services`
+--
+
+DROP TABLE IF EXISTS `career services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `career services` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int(11) NOT NULL,
+  `service_type` int(11) NOT NULL,
+  `_created` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_services_idx` (`service_type`),
+  CONSTRAINT `fk_services` FOREIGN KEY (`service_type`) REFERENCES `services` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `career services`
+--
+
+LOCK TABLES `career services` WRITE;
+/*!40000 ALTER TABLE `career services` DISABLE KEYS */;
+/*!40000 ALTER TABLE `career services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `github`
 --
 
@@ -128,6 +155,30 @@ LOCK TABLES `interviews` WRITE;
 /*!40000 ALTER TABLE `interviews` DISABLE KEYS */;
 INSERT INTO `interviews` VALUES (2,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:08:41'),(3,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(4,1,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(5,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(6,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(7,3,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(8,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(9,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35'),(10,4,'John Doe','Test Company','(123) 456-7890','123 Covalence St.','2018-10-08 00:00:00',NULL,'2018-10-08 19:11:35');
 /*!40000 ALTER TABLE `interviews` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `services`
+--
+
+DROP TABLE IF EXISTS `services`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `service_type` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `services`
+--
+
+LOCK TABLES `services` WRITE;
+/*!40000 ALTER TABLE `services` DISABLE KEYS */;
+INSERT INTO `services` VALUES (1,'Resume Requirements'),(2,'LinkedIn Improvements'),(3,'Interview Suggestioins'),(4,'Mock Interview'),(5,'Career Coaching'),(6,'Headshot Suggestions'),(7,'Networking Tips');
+/*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -203,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-10 14:55:46
+-- Dump completed on 2018-10-11 11:07:55
