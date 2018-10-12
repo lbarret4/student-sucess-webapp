@@ -136,7 +136,7 @@ export interface ICareerServices {
     _created?: Date;
 };
 
-export const Commits = new Table<ICommits>(pool, 'commits', {
+export const Commits = new Table<ICommits>(pool, 'Commits', {
     id: mysql.Types.INT24,
     number_commits: mysql.Types.INT24,
     github_id: mysql.Types.INT24,
@@ -204,6 +204,9 @@ export const Networking = new Table<INetworking>(pool, 'networking', {
     id: mysql.Types.INT24,
     interview_week: mysql.Types.VARCHAR,
     net_activites: mysql.Types.INT24,
+    contact: mysql.Types.VARCHAR,
+    company_name: mysql.Types.VARCHAR,
+    attachment: mysql.Types.VARCHAR,
     _created: mysql.Types.DATETIME,
 });
 
@@ -211,5 +214,8 @@ export interface INetworking {
     id?: number;
     interview_week?: string;
     net_activites?: number;
+    contact?: string;
+    company_name?: string;
+    attachment?: string;
     _created?: Date;
 };
