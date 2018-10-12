@@ -4,3 +4,4 @@ src/server/config/development.ts
 .vscode
 public/js/app.js
 public/css/styles.css
+src/client/components/admin/testing.tsx
