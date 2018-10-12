@@ -8,36 +8,42 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
     constructor(props: IRegisterProps) {
         super(props);
         this.state = {
-            firstname: '',
-            lastname: '',
-            dob: '',
-            city: '',
-            usstate: '',
+            firstname: 'JimJim',
+            lastname: 'MacGee',
+            dob: '01/02/1993',
+            city: 'New York City',
+            usstate: 'NY',
             email: '',
-            github: '',
+            github: 'JimJimMac',
             password: '',
             today: 0,
             tooYoung: false,
         };
     }
 
-    componentWillMount() {
-        this.setState({
-            firstname: User.firstname,
-            lastname: User.lastname,
-            dob: User.dob,
-            city: User.city,
-            usstate: User.usstate,
-            github: User.github,
-        })
-    }
+    // componentWillMount() {
+    //     this.setState({
+    //         firstname: User.firstname,
+    //         lastname: User.lastname,
+    //         dob: User.dob,
+    //         city: User.city,
+    //         usstate: User.usstate,
+    //         github: User.github,
+    //     })
+    // }
 
     render() {
 
         return (
             <main className="py-5">
-                <div className="sidenav d-flex justify-content-center" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white" }}>
-                    <img src="https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" height="100px"/>
+                <div className="sidenav d-flex flex-column align-items-start" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white" }}>
+                <img src="https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" height="200px" style={{display: "block", marginLeft: "auto", marginRight: "auto"}}/>
+                    <div style={{marginLeft: "auto", marginRight: "auto"}}>Name: {this.state.firstname} {this.state.lastname}</div>
+                    <div style={{marginLeft: "auto", marginRight: "auto"}}>Birthday: {this.state.dob}</div>
+                    <div style={{marginLeft: "auto", marginRight: "auto"}}>{this.state.city}, {this.state.usstate}</div>
+                    <div style={{marginLeft: "auto", marginRight: "auto"}}> {this.state.firstname}'s GitHub: 
+                    <a href={`https://github.com/${this.state.github}`} style={{ color: "white"}}> Link</a>
+                    </div>
                 </div>
                 <div className="container py-5">
 
