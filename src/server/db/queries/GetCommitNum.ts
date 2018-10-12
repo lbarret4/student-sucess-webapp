@@ -1,7 +1,7 @@
 import pool from '../pool';
 
 export default () => { 
-    return new Promise<IQueryGetCommitNumberAuthors>((resolve, reject) => {
+    return new Promise<IQueryGetCommitNum>((resolve, reject) => {
         pool.query(`
         SELECT
             g.id, g.github_link, c.number_commits, c.check_date
@@ -17,7 +17,7 @@ export default () => {
     });
 }
 
-export interface IQueryGetCommitNumberAuthors {
+export interface IQueryGetCommitNum {
     id: number;
     github_link: string;
     number_commits: number;
