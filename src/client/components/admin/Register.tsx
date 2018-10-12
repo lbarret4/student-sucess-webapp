@@ -65,7 +65,7 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
 
         let alert;
         if(this.state.tooYoung) {
-            alert = <Alert message="You are too young to use this site. The minimum requierment is 21 years of age" messageType={MessageTypes.Error}></Alert>;
+            alert = <Alert message="You are too young to use this site. The minimum requierment is 21 years of age." messageType={MessageTypes.Error}></Alert>;
         } else {
             alert = null;
         }
