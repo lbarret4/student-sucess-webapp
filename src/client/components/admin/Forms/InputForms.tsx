@@ -4,23 +4,22 @@ import { RouteComponentProps } from 'react-router-dom';
 import NavTabs from './NavTabs';
 
 
-export default class InputForms extends React.Component<RouteComponentProps,any> {
+export default class InputForms extends React.Component<RouteComponentProps, any> {
 
 
 
 
     render() {
-
-        console.log(this.props.match.path);
+        let formTabs:string[] = ['Network', 'Interview', 'Application', 'Summary'];
         return (
             <main className='py-5'>
                 <div className="container py-5">
                     <div className="card text-center" >
-                        <NavTabs  />       
-                        <Route   path={`${this.props.match.path}/Network`}  component={TextField} />
-                        <Route strict  path={`${this.props.match.path}/Interview`}  component={TextField} />
-                        <Route strict  path={`${this.props.match.path}/Application`}  component={TextField} />
-                        <Route strict  path={`${this.props.match.path}/Summary`}  component={TextField} />           
+                        <NavTabs formTabs={[...formTabs]} />
+                        <Route exact path={`${this.props.match.path}`} component={TextField} />
+                        <Route exact path={`${this.props.match.path}/Interview`} component={TextField} />
+                        <Route exact path={`${this.props.match.path}/Application`} component={TextField} />
+                        <Route exact path={`${this.props.match.path}/Summary`} component={TextField} />
                     </div >
                 </div>
             </main >
