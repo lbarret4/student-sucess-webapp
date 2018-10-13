@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Switch, Route, Router } from 'react-router'
+import { Route } from 'react-router'
 import { RouteComponentProps } from 'react-router-dom';
 import NavTabs from './Forms/NavTabs';
 import { NetworkForms, InterviewForms, ApplicationForms, SummaryForms } from "./Forms";
@@ -17,7 +17,6 @@ export default class InputForms extends React.Component<RouteComponentProps> {
                         <Route exact path={`${this.props.match.path}/Interview`} component={InterviewForms} />
                         <Route exact path={`${this.props.match.path}/Application`} component={ApplicationForms} />
                         <Route exact path={`${this.props.match.path}/Summary`} component={SummaryForms} />
-                        < h2>Test</h2>
                     </div >
                 </div>
             </main >
