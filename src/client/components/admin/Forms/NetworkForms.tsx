@@ -1,12 +1,12 @@
 
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import {/* , FormikErrors, FormikActions, FormikProps */  Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FormikErrors, FormikActions, FormikProps, FormikValues, ErrorMessage, } from 'formik';
 import Alert, { MessageTypes } from '../../shared/Alert';
 import * as Yup from "yup";
+import * as DateTime from "react-datetime";
 
-
-const DisplayFormikState = (props: any) => (
+export const DisplayFormikState = (props: any) => (
     <div
         style={{
             margin: "1rem 0"
@@ -32,6 +32,8 @@ interface FormValues {
     contact: string;
     company: string;
     activity: string;
+    date: DateTime.DatetimepickerProps["value"];
+    file: string
 }
 
 
@@ -44,8 +46,11 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
         const initialValues: FormValues = {
             contact: '',
             company: '',
-            activity: ''
+            activity: '',
+            date: new Date(Date.now()),
+            file: ''
         };
+
 
 
         return (
@@ -54,12 +59,49 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                 <Formik
                     initialValues={initialValues}
                     onSubmit={(values: FormValues) => alert(JSON.stringify(values, null, 2))}
+                    validationSchema={Yup.object().shape(
+                        {
+                            contact: Yup.string().required(),
+                            company: Yup.string().required(),
+                            activity: Yup.string().required(),
+                            date: Yup.date(),
+                            file: Yup.string()
+                        }
+                    )}
                 >
-                    {(props: any) => {
-                        const { values } = props;
+                    {(props: FormikProps<FormikValues>) => {
+                        const { values, setFieldValue, error } = props;
                         return (
                             <Form>
                                 <div className="form-row text-left ">
+                                    <div className='col-md-4 offset-md-4'>
+                                        <ErrorMessage name='contact'>
+                                            {msg => (
+                                                <Alert message={msg} messageType={MessageTypes.Error} />
+                                            )}
+                                        </ErrorMessage>
+                                    </div>
+                                     <div className='col-md-4'>
+                                        <ErrorMessage name='company'>
+                                            {msg => (
+                                                <Alert message={msg} messageType={MessageTypes.Error} />
+                                            )}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div className="form-row text-left ">
+                                    <div className="form-group col-md-4">
+                                        <label htmlFor='date'>
+                                            Date
+                                            </label>
+                                        <DateTime
+                                            input={true}
+                                            timeFormat={false}
+                                            inputProps={{ name: 'date' }}
+                                            defaultValue={values.date}
+                                            onChange={value => setFieldValue('date', value)}
+                                        />
+                                    </ div>
                                     <div className="form-group col-md-4">
                                         <label htmlFor='contact'>
                                             Contact
@@ -84,7 +126,9 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                                         />
 
                                     </div>
-                                    <div className="form-group col-md-4">
+                                </div>
+                                <div className="form-row text-left ">
+                                    <div className="form-group col-md-4 offset-md-4">
                                         <label htmlFor='activity'>
                                             Activity
                                             </label>
@@ -96,14 +140,25 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                                         />
 
                                     </div>
-                                    <div className='col'>
+                                    <div className="form-group col-md-4">
+                                        <label htmlFor='file'>
+                                            Attachment
+                                            </label>
+                                        <Field
+                                            type="file"
+                                            name="file"
+                                            className="form-control-file"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div className="form-row  text-right ">
+                                    <div className='col-md-4 offset-md-8'>
                                         <button className="btn btn-primary btn-lg btn-block">
                                             Submit
                                         </button>
                                     </div>
                                 </div>
-
-
                                 <DisplayFormikState {...props} />
                             </Form>
                         );
