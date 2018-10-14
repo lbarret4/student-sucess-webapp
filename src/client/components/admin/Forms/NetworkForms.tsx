@@ -58,23 +58,35 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                 <h5 className="card-title">Fill in your networking activities this week.</h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues) => alert(JSON.stringify(values, null, 2))}
+                    onSubmit={(values: FormValues,{resetForm,setSubmitting}) =>
+                    setTimeout(()=>{ 
+                        resetForm();
+                        alert(JSON.stringify(values, null, 2));
+                        setSubmitting(false);
+                    },2000)}
                     validationSchema={Yup.object().shape(
                         {
-                            contact: Yup.string().required(),
-                            company: Yup.string().required(),
-                            activity: Yup.string().required(),
-                            date: Yup.date(),
+                            contact: Yup.string().required('Please enter contact\'s company name'),
+                            company: Yup.string().required('Please enter company name'),
+                            activity: Yup.string().required('Please enter activity description'),
+                            date: Yup.date().typeError('Please enter date'),
                             file: Yup.string()
                         }
                     )}
                 >
                     {(props: FormikProps<FormikValues>) => {
-                        const { values, setFieldValue, error } = props;
+                        const { values, setFieldValue,isSubmitting } = props;
                         return (
-                            <Form>
+                            <Form className="py-5">
                                 <div className="form-row text-left ">
-                                    <div className='col-md-4 offset-md-4'>
+                                <div className='col-md-4'>
+                                        <ErrorMessage name='date'>
+                                            {msg => (
+                                                <Alert message={msg} messageType={MessageTypes.Error} />
+                                            )}
+                                        </ErrorMessage>
+                                    </div>
+                                    <div className='col-md-4'>
                                         <ErrorMessage name='contact'>
                                             {msg => (
                                                 <Alert message={msg} messageType={MessageTypes.Error} />
@@ -128,6 +140,15 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                                     </div>
                                 </div>
                                 <div className="form-row text-left ">
+                                    <div className='col-md-4 offset-md-4'>
+                                        <ErrorMessage name='activity'>
+                                            {msg => (
+                                                <Alert message={msg} messageType={MessageTypes.Error} />
+                                            )}
+                                        </ErrorMessage>
+                                    </div>
+                                </div>
+                                <div className="form-row text-left ">
                                     <div className="form-group col-md-4 offset-md-4">
                                         <label htmlFor='activity'>
                                             Activity
@@ -154,7 +175,10 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                                 </div>
                                 <div className="form-row  text-right ">
                                     <div className='col-md-4 offset-md-8'>
-                                        <button className="btn btn-primary btn-lg btn-block">
+                                        <button 
+                                        className="btn btn-primary btn-lg btn-block"
+                                        disabled={isSubmitting}
+                                        >
                                             Submit
                                         </button>
                                     </div>
