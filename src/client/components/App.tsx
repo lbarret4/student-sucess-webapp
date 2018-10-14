@@ -10,7 +10,7 @@ import Compose from './admin/Compose';
 import Footer from './shared/Footer';
 import PrivateRoute from './admin/privateRoute';
 import Logout from './admin/Logout';
-import InputForms from './admin/Forms/InputForms';
+import InputForms from './admin/InputForms';
 
 export default class App extends React.Component {
     render() {
