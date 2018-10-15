@@ -6,13 +6,11 @@ import * as Yup from "yup";
 import * as DateTime from "react-datetime";
 import { DisplayFormikState } from '../NetworkForms';
 import * as moment from 'moment';
-import { EmployerForm } from '../EmployerForm';
 
 interface FormValues {
     date: DateTime.DatetimepickerProps["value"];
     challenge: boolean;
     challengeDue: DateTime.DatetimepickerProps["value"];
-
     file: string
 }
 
@@ -23,7 +21,7 @@ export class InterviewForms extends React.Component<RouteComponentProps, any>{
     }
     render() {
         const initialValues: FormValues = {
-            date: new Date(Date.now()),
+            date:moment(),
             challenge: false,
             challengeDue: moment().add(1, 'w'),
             file: ''
@@ -35,15 +33,14 @@ export class InterviewForms extends React.Component<RouteComponentProps, any>{
                 <Formik
                     initialValues={initialValues}
                     onSubmit={(values: FormValues, { resetForm, setSubmitting }) =>
-                        setTimeout(() => {
-                            resetForm();
+                        setTimeout(() => {                            
                             alert(JSON.stringify(values, null, 2));
-                            setSubmitting(false);
+                            this.props.history.push(`${this.props.match.path}/EmployerInfo/1`)
+                            setSubmitting(false);                            
                         }, 2000)}
-                    validationSchema={Yup.object().shape(
-                        {
-                            activity: Yup.string().required('Please enter activity description'),
-                            date: Yup.date().typeError('Please enter date'),
+                    validationSchema={Yup.object().shape(                       {
+                            date: Yup.date().typeError('Please enter a valid date and time'),
+                            challengeDue: Yup.date().typeError('Please enter a valid date'),
                             file: Yup.string()
                         }
                     )}
@@ -60,6 +57,13 @@ export class InterviewForms extends React.Component<RouteComponentProps, any>{
                                             )}
                                         </ErrorMessage>
                                     </div>
+                                    <div className='col-md-4'>
+                                        <ErrorMessage name='challengeDue'>
+                                            {msg => (
+                                                <Alert message={msg} messageType={MessageTypes.Error} />
+                                            )}
+                                        </ErrorMessage>
+                                    </div>
                                 </div>
                                 <div className="form-row text-left ">
                                     <div className="form-group col-md-4">
@@ -68,7 +72,6 @@ export class InterviewForms extends React.Component<RouteComponentProps, any>{
                                             </label>
                                         <DateTime
                                             input={true}
-                                            timeFormat={false}
                                             inputProps={{ name: 'date' }}
                                             defaultValue={values.date}
                                             onChange={value => setFieldValue('date', value)}
@@ -116,20 +119,19 @@ export class InterviewForms extends React.Component<RouteComponentProps, any>{
                                 </div>
                                 <div className="form-row  text-right ">
                                     <div className='col-md-4 offset-md-8'>
-                                        <Link
-                                            to={`${this.props.match.path}/EmployerInfo`}
-                                            className="btn btn-primary btn-lg btn-block"
+                                    <button 
+                                        className="btn btn-primary btn-lg btn-block"
+                                        disabled={isSubmitting}
                                         >
-                                            Employer
-                                        </Link>
+                                            Next: Employer Info
+                                        </button>                                       
                                     </div>
                                 </div>
                                 <DisplayFormikState {...props} />
                             </Form>
                         );
                     }}
-                </Formik>
-                <Route strict path={`${this.props.match.path}/EmployerInfo`} component={EmployerForm} />
+                </Formik>                
             </div>
         );
     }
