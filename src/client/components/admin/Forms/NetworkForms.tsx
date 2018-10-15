@@ -66,10 +66,10 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                     },2000)}
                     validationSchema={Yup.object().shape(
                         {
-                            contact: Yup.string().required('Please enter contact\'s company name'),
-                            company: Yup.string().required('Please enter company name'),
-                            activity: Yup.string().required('Please enter activity description'),
-                            date: Yup.date().typeError('Please enter date'),
+                            contact: Yup.string().required('Please enter your contact\'s company name'),
+                            company: Yup.string().required('Please enter a company name'),
+                            activity: Yup.string().required('Please enter an activity description'),
+                            date: Yup.date().typeError('Please enter a valid date'),
                             file: Yup.string()
                         }
                     )}
