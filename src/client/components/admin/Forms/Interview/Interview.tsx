@@ -11,7 +11,7 @@ export class Interview extends React.Component<RouteComponentProps> {
         return (
             <Fragment>
                 <Route exact path={`${this.props.match.path}`} component={InterviewForms} />
-                <Route exact path={`${this.props.match.path}/EmployerInfo`} component={EmployerForm} />
+                <Route path={`${this.props.match.path}/EmployerInfo/:id?`} component={EmployerForm} />
             </Fragment>
 
         );
