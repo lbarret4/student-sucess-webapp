@@ -31,7 +31,7 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
                 <option value={name} key={index}>{company}</option>
 
             );
-        })
+        });
 
         return (
             <div className="card-body">

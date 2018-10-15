@@ -48,7 +48,7 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                 <option value={name}>{state}</option>
 
             );
-        })
+        });
 
         return (
             <div className="card-body">
