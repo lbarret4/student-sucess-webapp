@@ -1,6 +1,6 @@
-import { ApplicationForms } from "./ApplicationForms";
-import { InterviewForms } from "./InterviewForms";
+import { ApplicationForms, Application } from "./Application";
+import { InterviewForms, Interview } from "./Interview/";
 import { NetworkForms } from "./NetworkForms";
 import { SummaryForms } from "./SummaryForms";
 
-export{ApplicationForms,InterviewForms,NetworkForms,SummaryForms};
+export { Application, ApplicationForms, InterviewForms, Interview, NetworkForms, SummaryForms };
