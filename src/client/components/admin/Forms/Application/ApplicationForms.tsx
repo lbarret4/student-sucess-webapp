@@ -28,7 +28,7 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
             let name = index === 0 && index !== companies.length - 1 ? initialValues.company : `company${index}`;
             name = index === companies.length - 1 ? 'NA' : name;
             return (
-                <option value={name}>{`${company}`}</option>
+                <option value={name} key={index}>{company}</option>
 
             );
         })
@@ -87,7 +87,7 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
                                     </ div>
                                     <div className="form-group col-md-4">
                                         <label htmlFor='company'>
-                                            Company Name
+                                            Company
                                             </label>
                                         <Field component="select" name="company" className="form-control">
                                             {options}
