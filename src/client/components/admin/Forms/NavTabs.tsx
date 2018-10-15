@@ -5,26 +5,26 @@ import { RouteComponentProps, NavLink } from 'react-router-dom';
 
 export default class NavTabs extends React.Component<INavTabsProps> {
 
-    
+
     render() {
 
         let tabs = this.props.formTabs;
 
         let navList = tabs.map((tab, index) => {
-            let path = ( tab === 'Network'?'':`${tab}`);
-           if(tab === 'Network'){
-            return (
-                <li className="nav-item" >
-                    <NavLink  exact to={`/forms/`} className='nav-link' activeClassName='active' key={index}>{`${tab} Forms`}</NavLink>
-                </li >
-            );
-        }else{
+            let path = (tab === 'Career Services' ? `/forms/Career-Services` : '/forms/');
+            if (tab === 'Network' || tab === 'Career Services') {
                 return (
                     <li className="nav-item" >
-                        <NavLink to={`/forms/${tab}`} className='nav-link' activeClassName='active' key={index}>{`${tab} Forms`}</NavLink>
+                        <NavLink exact to={path} className='nav-link' activeClassName='active' key={index}>{`${tab} Forms`}</NavLink>
                     </li >
                 );
-                
+            } else {
+                return (
+                    <li className="nav-item" >
+                        <NavLink to={`${path+tab}`} className='nav-link' activeClassName='active' key={index}>{`${tab} Forms`}</NavLink>
+                    </li >
+                );
+
             }
 
         });
@@ -44,6 +44,6 @@ export default class NavTabs extends React.Component<INavTabsProps> {
 
 
 
-interface INavTabsProps  {
+interface INavTabsProps {
     formTabs: string[]
 }
