@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import Compose from '../Compose';
 export class SummaryForms extends React.Component<RouteComponentProps, any>{
     constructor(props: any) {
         super(props);
@@ -7,9 +8,8 @@ export class SummaryForms extends React.Component<RouteComponentProps, any>{
     render() {
         return (
             <div className="card-body">
-                <h5 className="card-title">Special title treatment {this.props.match.path.substring(1)}</h5>
-                <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+                <h5 className="card-title">Summarize your career activities for this week</h5>
+                <Compose {...this.props}/>
             </div>
         );
     }
