@@ -2,9 +2,10 @@
     "compilerOptions": {
       "outDir": "./public/js/",
       "noImplicitAny": true,
-      "module": "commonjs",
+      "module": "es6",
       "target": "es5",
       "jsx": "react",
+      "moduleResolution": "node",
       "allowJs": true,
       "lib":[
           "es2015", "dom"
