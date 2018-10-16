@@ -1,0 +1,132 @@
+import * as React from 'react';
+import json, { User } from '../../utils/api';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import { isLoggedIn } from '../../utils/api';
+
+export default class Navbar extends React.Component<any, IRegisterState> {
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            firstname: 'JimJim',
+            lastname: 'MacGee',
+            dob: '01/02/1993',
+            city: 'New York City',
+            usstate: 'NY',
+            email: '',
+            github: 'JimJimMac',
+            password: '',
+            today: 0,
+            tooYoung: false,
+            image: '',
+        };
+    }
+
+    // componentWillMount() {
+    //     this.setState({
+    //         firstname: User.firstname,
+    //         lastname: User.lastname,
+    //         dob: User.dob,
+    //         city: User.city,
+    //         usstate: User.usstate,
+    //         github: User.github,
+    //     })
+    // }
+
+    MakeChanges = async (e: React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+
+            try {
+                let token = await json('/auth/register',
+                    'POST',
+                    this.state
+                );
+                this.props.history.push('/dashboard');
+            } catch (e) {
+                console.log(e);
+            } 
+        }
+
+    render() {
+        if (this.state.image) {
+
+        } else {
+            this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
+        }
+
+        if (isLoggedIn()) {
+            <main className="py-5">
+                    <div className="container py-5">
+                    <div className="row">
+                        <div className="col-md-4 offset-md-4">
+                            {alert}
+                        </div>
+                    </div>
+                        <form className="row" onSubmit={this.MakeChanges}>
+                            <div className="col-md-4 offset-md-4">
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.firstname} onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.lastname} onChange={(e) => { this.setState({ lastname: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.dob} onChange={(e) => { this.setState({ dob: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.city} onChange={(e) => { this.setState({ city: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.usstate} onChange={(e) => { this.setState({ usstate: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.github} onChange={(e) => { this.setState({ github: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row">
+                                    <div className="col form-group">
+                                        <input type="text" className="form-control" placeholder={this.state.github} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                                    </div>
+                                </div>
+                                <div className="form-row form-group">
+                                    <div className="col">
+                                        <button className="btn btn-primary btn-lg w-100">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </main>
+            ;
+        } else {
+            return(
+            <div></div> );
+        }
+    }
+}
+
+interface IRegisterState {
+    firstname: string;
+    lastname: string;
+    dob: string;
+    city: string;
+    usstate: string;
+    email: string;
+    github: string;
+    password: string;
+    today: number;
+    tooYoung: boolean;
+    image: string;
+}
