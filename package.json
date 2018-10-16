@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.1.2",
     "@octokit/rest": "^15.13.0",
     "@types/bcrypt": "^2.0.0",
     "@types/cors": "^2.8.4",
@@ -32,6 +33,7 @@
     "@types/passport-http-bearer": "^1.0.33",
     "@types/passport-local": "^1.0.33",
     "@types/react": "^16.4.14",
+    "@types/react-big-calendar": "^0.20.0",
     "@types/react-dom": "^16.0.8",
     "@types/react-router": "^4.0.31",
     "@types/react-router-dom": "^4.3.1",
@@ -50,6 +52,7 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "react": "^16.5.2",
+    "react-big-calendar": "^0.19.2",
     "react-datetime": "^2.15.0",
     "react-dom": "^16.5.2",
     "react-router": "^4.3.1",
