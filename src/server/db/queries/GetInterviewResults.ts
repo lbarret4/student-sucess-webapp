@@ -1,12 +1,17 @@
 import pool from '../pool';
 
-export default () => { 
+export default (userid?: any) => { 
     return new Promise<IQueryGetInterviewResults>((resolve, reject) => {
         pool.query(`
         SELECT
-            i.contact as Contact, i.company_name as Company, i.phone, i.address, i.interview_date, i.scheduled_int, u.first_name as FirstName, u.last_name as LastName
+            i.employer_id, i.interview_date
         FROM 
-            interviews i join users u on i.userid = u.userid;`, 
+            interviews i 
+        join 
+            users u on i.userid = u.userid
+        WHERE 
+            i.userid = ?`,
+            userid, 
             (err, results) => {
             if(err) {
                 reject(err);
@@ -18,12 +23,6 @@ export default () => {
 }
 
 export interface IQueryGetInterviewResults {
-    contact?: string,
-    company_name?: string,
-    phone?: string,
-    address?: string,
-    interview_date?: Date,
-    scheduled_int?: Boolean,
-    first_name?: string,
-    last_name?: string
+    employer_id?: number;
+    interview_date?: Date;
 }
