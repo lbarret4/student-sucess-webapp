@@ -23,7 +23,7 @@ export default (userid?: any) => {
 }
 
 export interface IGetNumNetworkAct {
-    net_activites?: Blob;
+    net_activites?: string;
     contat?: string;
     company_name?: string;
 };
