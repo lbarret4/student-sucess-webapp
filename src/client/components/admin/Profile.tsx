@@ -53,7 +53,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>{this.state.firstname}'s GitHub: {}
                             <a href={`https://github.com/${this.state.github}`} style={{ color: "white" }}>Link</a>
                         </div>
-                        <Link to="/EditProfile" id="Edit" className="btn btn-default border-dark" style={{ marginLeft: "auto", marginRight: "auto", color: "white" }} href="#">Edit Profile</Link>
+                        <Link to="/EditProfile" id="Edit" className="btn btn-dark border-dark" style={{ marginLeft: "auto", marginRight: "auto", color: "white" }} href="#">Edit Profile</Link>
                     </div>
                     <div className="container py-5">
 
