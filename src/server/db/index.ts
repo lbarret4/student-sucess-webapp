@@ -2,20 +2,18 @@ import * as mysql from 'mysql';
 import Table from 'tablecrud';
 
 import pool from './pool';
-import GetBlogsAuthors from './queries/GetBlogsAuthors';
 import GetCommitNum from './queries/GetCommitNum';
 import GetInterviewResults from './queries/GetInterviewResults';
-import GetNetworkInfo from './queries/GetNetworkInfo';
-import GetMockInterviews from './queries/GetMockInterviews';
+import GetNumNetworkAct from './queries/GetNumNetworkAct';
+import GetNumMockInt from './queries/GetNumMockInt';
 import GetNumJobApp from './queries/GetNumJobApp';
 import GetNumIntWeek from './queries/GetNumIntWeek';
 
 export const Queries = {
-    GetBlogsAuthors,
     GetCommitNum,
     GetInterviewResults,
-    GetNetworkInfo,
-    GetMockInterviews,
+    GetNumNetworkAct,
+    GetNumMockInt,
     GetNumJobApp,
     GetNumIntWeek,
 };
