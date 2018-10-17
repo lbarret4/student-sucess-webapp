@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
 import TableRouter from 'tablerouter';
-import { Users, IUser } from '../../db';
+import { IUserActivities, UserActivities, IUser} from '../../db';
 
 const isAdmin: RequestHandler = (req, res, next) => {
 
@@ -12,8 +12,8 @@ const isAdmin: RequestHandler = (req, res, next) => {
     return next();
 }
 
-export default new TableRouter<IUser>(Users, {
+export default new TableRouter<IUserActivities>(UserActivities, {
     canDelete: isAdmin,
-    canRead: isAdmin,
-    canWrite: isAdmin
+    canWrite: isAdmin,
+    canRead: isAdmin
 }).Router
