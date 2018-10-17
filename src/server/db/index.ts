@@ -54,7 +54,7 @@ export interface IUser {
     first_name?: string;
     last_name?: string;
     user_role?: string;
-    img?: Blob;
+    img?: string;
     program_id?: number;
     dob?: string;
     city?: string;
