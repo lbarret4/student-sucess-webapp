@@ -55,10 +55,10 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     }
 
     render() {
-        if (this.state.image) {
-
-        } else {
+        if (this.state.image == '') {
             this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
+        } else {
+            
         }
 
         let alert;
@@ -78,6 +78,11 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                     </div>
                     <form className="row" onSubmit={this.MakeChanges}>
                         <div className="col-md-4 offset-md-4">
+                        <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
+                                </div>
+                            </div>
                             <div className="form-row">
                                 <div className="col form-group">
                                     <input type="text" className="form-control" value={this.state.firstname} placeholder="First Name" onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />

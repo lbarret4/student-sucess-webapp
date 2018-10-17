@@ -22,11 +22,10 @@ export default class Navbar extends React.Component<any, INavState> {
 
     render() {
         if (isLoggedIn()) {
-            if (this.state.name == "Placeholder") {
-                this.getName(User.userid)
-            }
-        }
-
+            if (this.state.name == "Placeholder"){
+            this.getName(User.userid)
+        }}
+    
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
                 {isLoggedIn() ? <Link to="/profile" className="navbar-brand" href="#"> Welcome, {this.state.name}!</Link> : <Link to="/" className="navbar-brand" href="#">Covalence Student Success App</Link>}

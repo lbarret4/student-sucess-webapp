@@ -44,8 +44,8 @@ export default class Navbar extends React.Component<any, IRegisterState> {
 
         if (isLoggedIn()) {
             return (
-                <main className="py-5">
-                    <div className="sidenav d-flex flex-column align-items-start" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white" }}>
+                <main className="py-5" style={{float: "left"}}>
+                    <div className="sidenav d-flex flex-column align-items-start" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white"}}>
                         <img src={this.state.image} height="200px" style={{ display: "block", marginLeft: "auto", marginRight: "auto" }} />
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>Name: {this.state.firstname} {this.state.lastname}</div>
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>Birthday: {this.state.dob}</div>
