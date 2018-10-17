@@ -8,9 +8,9 @@ export default (userid?: any) => {
         From 
             networking n
         join 
-            users u on n.user = u.userid
+            users u on n.user = u.id
         Where
-            u.userid = ? `,
+            u.id = ? `,
             userid,
             (err, results) => {
                 if(err) {

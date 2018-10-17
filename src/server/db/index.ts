@@ -33,7 +33,7 @@ export interface IBlog {
 };
 
 export const Users = new Table<IUser>(pool, 'users', {
-    userid: mysql.Types.INT24,
+    id: mysql.Types.INT24,
     first_name: mysql.Types.VARCHAR,
     last_name: mysql.Types.VARCHAR,
     email: mysql.Types.VARCHAR,
@@ -48,7 +48,7 @@ export const Users = new Table<IUser>(pool, 'users', {
 });
 
 export interface IUser {
-    userid?: number;
+    id?: number;
     email?: string;
     password?: string;
     first_name?: string;

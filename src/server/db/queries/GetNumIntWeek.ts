@@ -8,7 +8,7 @@ export default (userid: any, start: any, end: any) => {
         FROM 
             interviews i 
         join 
-            users u on i.userid = u.userid
+            users u on i.userid = u.id
         WHERE 
             i.userid = ?
         and 

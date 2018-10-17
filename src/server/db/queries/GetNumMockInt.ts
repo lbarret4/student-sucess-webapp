@@ -8,11 +8,11 @@ export default (userid?: any) => {
         From
 	        career_services cs
         join
-            users u on u.userid = cs.userid
+            users u on u.id = cs.userid
         WHERE
             cs.service_type = 4
         and 
-            u.userid = ?;"
+            u.id = ?;"
             `, userid, 
             (err, results) => {
                 if (err) {
