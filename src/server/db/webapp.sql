@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: webapp
+-- Host: localhost    Database: webapp
 -- ------------------------------------------------------
--- Server version	5.7.23
+-- Server version	5.7.23-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,35 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `Commits`
---
-
-DROP TABLE IF EXISTS `Commits`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Commits` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `number_commits` int(11) NOT NULL,
-  `github_id` int(11) NOT NULL,
-  `hash` varchar(60) DEFAULT NULL,
-  `_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `fk_github_idx` (`github_id`),
-  CONSTRAINT `fk_github` FOREIGN KEY (`github_id`) REFERENCES `github` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Commits`
---
-
-LOCK TABLES `Commits` WRITE;
-/*!40000 ALTER TABLE `Commits` DISABLE KEYS */;
-INSERT INTO `Commits` VALUES (1,5,3,'asdfads','2018-10-12 17:31:58'),(2,3,2,'sdfgsdffh','2018-10-12 17:33:20'),(3,5,1,'jtyjrw5','2018-10-12 17:33:20'),(4,12,4,'3jq3kh5','2018-10-16 20:34:47'),(5,15,5,'hf4uih','2018-10-16 20:34:47'),(6,32,6,'h4thqho','2018-10-16 20:34:47'),(7,4,7,'adsfa83','2018-10-16 20:34:47'),(8,21,8,'afneiu3','2018-10-16 20:34:47'),(9,43,9,'jae894y','2018-10-16 20:34:47'),(10,12,10,'nfhan84','2018-10-16 20:34:47'),(11,9,11,'arh78r2','2018-10-16 20:34:47'),(12,15,12,'ufjn89a4','2018-10-16 20:34:47'),(13,18,13,'jrn48a9yt','2018-10-16 20:34:47');
-/*!40000 ALTER TABLE `Commits` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `applications`
@@ -62,7 +33,7 @@ CREATE TABLE `applications` (
   KEY `fk_user_app` (`userid`),
   KEY `application_user_idx` (`userid`),
   CONSTRAINT `fk_company_info` FOREIGN KEY (`company_info`) REFERENCES `employer_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_app` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_app` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -90,7 +61,7 @@ CREATE TABLE `blogs` (
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `blogid` (`userid`),
-  CONSTRAINT `blogid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `blogid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,7 +90,7 @@ CREATE TABLE `career_services` (
   PRIMARY KEY (`id`),
   KEY `fk_services_idx` (`service_type`),
   KEY `fk_userid_idx` (`userid`),
-  CONSTRAINT `fk_csUser` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_csUser` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_services` FOREIGN KEY (`service_type`) REFERENCES `services` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -132,6 +103,35 @@ LOCK TABLES `career_services` WRITE;
 /*!40000 ALTER TABLE `career_services` DISABLE KEYS */;
 INSERT INTO `career_services` VALUES (1,1,1,'2018-10-15 10:34:07'),(2,3,2,'2018-10-15 10:34:07'),(3,4,3,'2018-10-15 10:34:07'),(4,1,4,'2018-10-15 10:34:07'),(5,3,4,'2018-10-15 10:34:07'),(6,4,4,'2018-10-15 10:34:07'),(7,1,4,'2018-10-16 08:06:54'),(8,5,6,'2018-10-16 20:37:25'),(9,5,3,'2018-10-16 20:37:25'),(10,6,4,'2018-10-16 20:37:25'),(11,6,1,'2018-10-16 20:37:25'),(12,6,3,'2018-10-16 20:37:25'),(13,7,7,'2018-10-16 20:37:25'),(14,7,3,'2018-10-16 20:37:25'),(15,7,1,'2018-10-16 20:37:25'),(16,8,2,'2018-10-16 20:37:25'),(17,8,3,'2018-10-16 20:37:25'),(18,8,4,'2018-10-16 20:37:25'),(19,9,4,'2018-10-16 20:37:25'),(20,9,7,'2018-10-16 20:37:25'),(21,9,5,'2018-10-16 20:37:25'),(22,10,6,'2018-10-16 20:37:25'),(23,10,4,'2018-10-16 20:37:25'),(24,10,3,'2018-10-16 20:37:25'),(25,11,1,'2018-10-16 20:37:25'),(26,11,4,'2018-10-16 20:37:25'),(27,11,6,'2018-10-16 20:37:25'),(28,12,3,'2018-10-16 20:37:25'),(29,12,2,'2018-10-16 20:37:25'),(30,13,4,'2018-10-16 20:37:25'),(31,14,5,'2018-10-16 20:37:25'),(32,14,4,'2018-10-16 20:37:25'),(33,15,1,'2018-10-16 20:37:25'),(34,16,4,'2018-10-16 20:37:25'),(35,16,3,'2018-10-16 20:37:25');
 /*!40000 ALTER TABLE `career_services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `commits`
+--
+
+DROP TABLE IF EXISTS `commits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `commits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number_commits` int(11) NOT NULL,
+  `github_id` int(11) NOT NULL,
+  `hash` varchar(60) DEFAULT NULL,
+  `_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_github_idx` (`github_id`),
+  CONSTRAINT `fk_github` FOREIGN KEY (`github_id`) REFERENCES `github` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `commits`
+--
+
+LOCK TABLES `commits` WRITE;
+/*!40000 ALTER TABLE `commits` DISABLE KEYS */;
+INSERT INTO `commits` VALUES (1,5,3,'asdfads','2018-10-12 17:31:58'),(2,3,2,'sdfgsdffh','2018-10-12 17:33:20'),(3,5,1,'jtyjrw5','2018-10-12 17:33:20'),(4,12,4,'3jq3kh5','2018-10-16 20:34:47'),(5,15,5,'hf4uih','2018-10-16 20:34:47'),(6,32,6,'h4thqho','2018-10-16 20:34:47'),(7,4,7,'adsfa83','2018-10-16 20:34:47'),(8,21,8,'afneiu3','2018-10-16 20:34:47'),(9,43,9,'jae894y','2018-10-16 20:34:47'),(10,12,10,'nfhan84','2018-10-16 20:34:47'),(11,9,11,'arh78r2','2018-10-16 20:34:47'),(12,15,12,'ufjn89a4','2018-10-16 20:34:47'),(13,18,13,'jrn48a9yt','2018-10-16 20:34:47');
+/*!40000 ALTER TABLE `commits` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `github` (
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `githubid_idx` (`userid`),
-  CONSTRAINT `githubid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `githubid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -214,7 +214,7 @@ CREATE TABLE `interviews` (
   KEY `fk_userid_idx` (`userid`),
   KEY `fk_emp_id_idx` (`employer_id`),
   CONSTRAINT `fk_emp_id` FOREIGN KEY (`employer_id`) REFERENCES `employer_info` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -271,7 +271,7 @@ CREATE TABLE `networking` (
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_user_idx` (`user`),
-  CONSTRAINT `fk_user` FOREIGN KEY (`user`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_user` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -343,13 +343,13 @@ DROP TABLE IF EXISTS `tokens`;
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NOT NULL,
-  `token` varchar(60) NOT NULL,
+  `token` text,
   `expires` datetime DEFAULT NULL,
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_userid_idx` (`userid`),
-  CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,6 +358,7 @@ CREATE TABLE `tokens` (
 
 LOCK TABLES `tokens` WRITE;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
+INSERT INTO `tokens` VALUES (1,1,NULL,'2018-11-16 15:29:48','2018-10-17 15:29:47'),(2,1,NULL,'2018-11-16 15:30:22','2018-10-17 15:30:22'),(3,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjMsInVuaXF1ZSI6IjFmMmEyNGQyMGI5YTgyNzY4MzZkMmQ3MzA2ZDU3YmVkNTIzNmY3ZTQ4OGU1MWY3MTVmNTZlMGE3YTM3MmRiNjYiLCJpYXQiOjE1Mzk4MDQ2OTB9.xmKNToD1ots7mDLv0-mUqLEOJb6UDCAqTsCQc1Ake8c','2018-11-16 15:31:30','2018-10-17 15:31:30');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -374,7 +375,7 @@ CREATE TABLE `user_activities` (
   PRIMARY KEY (`userid`,`activityid`),
   KEY `fk_ua_actid_idx` (`activityid`),
   CONSTRAINT `fk_ua_actid` FOREIGN KEY (`activityid`) REFERENCES `job_activities` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ua_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`userid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_ua_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -396,7 +397,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
   `email` varchar(320) NOT NULL,
@@ -408,7 +409,7 @@ CREATE TABLE `users` (
   `city` varchar(45) NOT NULL,
   `state` varchar(45) NOT NULL,
   `_created` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userid`),
+  PRIMARY KEY (`id`),
   KEY `fk_program_idx` (`program_id`),
   CONSTRAINT `fk_program` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
@@ -423,10 +424,6 @@ LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'Michael','Stringer','michael@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,3,'1983-03-30','Phoenix','AR','2018-10-08 13:49:21'),(3,'Richard','Garner','richard@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,3,'1998-02-13','Montgomery','AL','2018-10-08 18:50:14'),(4,'Llewellyn','Barrett','llewellyn@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,3,'1986-06-15','Raleigh','NC','2018-10-08 18:50:14'),(5,'Joel','Diaz','joel@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1983-06-16','Santa Ana','CA','2018-10-16 19:50:09'),(6,'Eden','Black','eden@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1982-03-03','Baton Rouge','LA','2018-10-16 19:50:09'),(7,'Tristen','Cobb','tristen@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1986-11-20','Pittsburgh','PA','2018-10-16 19:50:09'),(8,'Annie','Mclean','annie@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1989-07-31','Los Angeles','CA','2018-10-16 19:50:09'),(9,'Orlando','Valentine','orlando@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1998-05-09','Lexington','KY','2018-10-16 19:50:09'),(10,'Cale','Rhodes','cale@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1997-01-21','Arlington','TX','2018-10-16 19:50:09'),(11,'Andrea','Sweeney','andrea@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1985-08-05','Durham','NC','2018-10-16 19:50:09'),(12,'Gemma','Deleon','gemma@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1997-02-04','Corpus Christi','TX','2018-10-16 19:50:09'),(13,'Nyla','Colon','nyla@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1997-08-01','Dallas','TX','2018-10-16 19:50:09'),(14,'Elianna','Livingston','elianna@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1988-02-27','Reno','NV','2018-10-16 19:50:09'),(15,'Felix','Zamora','felix@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1984-10-26','San Jose','CA','2018-10-16 19:50:09'),(16,'Rene','Owen','rene@test.com','$2b$10$W.WMFi6TwnIWrv01nGWcduj1PJZA7UTk6SLDvVyGiG2UTJovbZtQC','Guest',NULL,NULL,'1976-03-06','Omaha','NE','2018-10-16 19:50:09');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'webapp'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -437,4 +434,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-17 12:57:45
+-- Dump completed on 2018-10-17 15:40:57
