@@ -1,7 +1,7 @@
 import pool from '../pool';
 
 export default (userid?: any) => {
-    return new Promise<IGetMockInterview>((resolve, reject) => {
+    return new Promise<IGetNumMockInt>((resolve, reject) => {
         pool.query(`
         Select
             cs.service_type
@@ -24,6 +24,6 @@ export default (userid?: any) => {
     });
 }
 
-export interface IGetMockInterview {
+export interface IGetNumMockInt {
     service_type?: number;
 };

@@ -1,7 +1,7 @@
 import pool from '../pool';
 
 export default (userid?: any) => {
-    return new Promise<IGetNetworkInfo>((resolve, reject) => {
+    return new Promise<IGetNumNetworkAct>((resolve, reject) => {
         pool.query(`
         Select
             n.net_activities, n.contact, n.company_name
@@ -22,7 +22,7 @@ export default (userid?: any) => {
     });
 }
 
-export interface IGetNetworkInfo {
+export interface IGetNumNetworkAct {
     net_activites?: Blob;
     contat?: string;
     company_name?: string;
