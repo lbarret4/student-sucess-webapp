@@ -21,10 +21,14 @@ export default class Navbar extends React.Component<any, INavState> {
     }
 
     render() {
-        if (isLoggedIn()) {
-            if (this.state.name == "Placeholder") {
-                this.getName(User.userid)
-            }
+        if (isLoggedIn() && this.state.name === "Placeholder") {
+
+            this.getName(User.userid);
+
+        }else if(!isLoggedIn() && this.state.name !== "Placeholder"){
+            this.setState({
+                name:"Placeholder"
+            });
         }
 
         return (
