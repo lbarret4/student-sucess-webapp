@@ -1,10 +1,10 @@
 import pool from '../pool';
 
-export default (userid?: any) => { 
+export default (userid: any, start: any, end: any) => { 
     return new Promise<IQueryGetInterviewResults>((resolve, reject) => {
         pool.query(`
         SELECT
-            count(i.userid)
+            count(i.userid) as NumberOfInterviews
         FROM 
             interviews i 
         join 
@@ -15,7 +15,7 @@ export default (userid?: any) => {
             i._created 
         BETWEEN 
             "?" and "?"`,
-        userid, 
+        [userid, start, end],
             (err, results) => {
             if(err) {
                 reject(err);
@@ -27,5 +27,5 @@ export default (userid?: any) => {
 }
 
 export interface IQueryGetInterviewResults {
-    userid?: number;
+    NumberOfInterviews?: number;
 }
