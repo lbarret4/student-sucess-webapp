@@ -3,6 +3,8 @@ import json, { User } from '../../utils/api';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { isLoggedIn } from '../../utils/api';
 
+import Alert, { MessageTypes } from '../shared/Alert';
+
 export default class Navbar extends React.Component<any, IRegisterState> {
 
     constructor(props: any) {
@@ -13,12 +15,13 @@ export default class Navbar extends React.Component<any, IRegisterState> {
             dob: '01/02/1993',
             city: 'New York City',
             usstate: 'NY',
-            email: '',
+            email: 'jimjim@test.com',
             github: 'JimJimMac',
-            password: '',
+            password: 'Potat0s',
             today: 0,
             tooYoung: false,
             image: '',
+            passwordConfirmation: '',
         };
     }
 
@@ -36,17 +39,20 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     MakeChanges = async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
-
+        if (this.state.password == this.state.passwordConfirmation) {
             try {
-                let token = await json('/auth/register',
-                    'POST',
-                    this.state
-                );
-                this.props.history.push('/dashboard');
+                // let token = await json('/auth/register',
+                //     'POST',
+                //     this.state
+                // );
+                // this.props.history.push('/dashboard');
             } catch (e) {
                 console.log(e);
-            } 
+            }
+        } else {
+            this.setState({ tooYoung: true })
         }
+    }
 
     render() {
         if (this.state.image) {
@@ -55,65 +61,68 @@ export default class Navbar extends React.Component<any, IRegisterState> {
             this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
         }
 
-        if (isLoggedIn()) {
+        let alert;
+        if (this.state.tooYoung) {
+            alert = <Alert message="The passwords do not match. Please try again." messageType={MessageTypes.Error}></Alert>;
+        } else {
+            alert = null;
+        }
+
+        return (
             <main className="py-5">
-                    <div className="container py-5">
+                <div className="container py-5">
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
                             {alert}
                         </div>
                     </div>
-                        <form className="row" onSubmit={this.MakeChanges}>
-                            <div className="col-md-4 offset-md-4">
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.firstname} onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.lastname} onChange={(e) => { this.setState({ lastname: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.dob} onChange={(e) => { this.setState({ dob: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.city} onChange={(e) => { this.setState({ city: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.usstate} onChange={(e) => { this.setState({ usstate: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.github} onChange={(e) => { this.setState({ github: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col form-group">
-                                        <input type="text" className="form-control" placeholder={this.state.github} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
-                                    </div>
-                                </div>
-                                <div className="form-row form-group">
-                                    <div className="col">
-                                        <button className="btn btn-primary btn-lg w-100">Save Changes</button>
-                                    </div>
+                    <form className="row" onSubmit={this.MakeChanges}>
+                        <div className="col-md-4 offset-md-4">
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.firstname} placeholder="First Name" onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.lastname} placeholder="Last Name" onChange={(e) => { this.setState({ lastname: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.city} placeholder="City" onChange={(e) => { this.setState({ city: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.usstate} placeholder="State" onChange={(e) => { this.setState({ usstate: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.github} placeholder="GitHub User Name" onChange={(e) => { this.setState({ github: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.email} placeholder="Email Adress" onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="password" className="form-control" placeholder="Enter Password" onChange={(e) => { this.setState({ passwordConfirmation: e.target.value }) }} required />
+                                </div>
+                            </div>
+                            <div className="form-row form-group">
+                                <div className="col">
+                                    <button className="btn btn-primary btn-lg w-100">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </main>
-            ;
-        } else {
-            return(
-            <div></div> );
-        }
+        );
     }
 }
 
@@ -129,4 +138,5 @@ interface IRegisterState {
     today: number;
     tooYoung: boolean;
     image: string;
+    passwordConfirmation: string,
 }

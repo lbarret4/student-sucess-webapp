@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import json from '../../utils/api';
-
-import BlogListItem from '../shared/BlogListItem';
 
 export default class DStats extends React.Component<any, any> {
 
     render() {
         return (
-            <React.Component>
+            <React.Fragment>
                 <div className="d-flex justify-content-center">
                     <h3 className="card-header border-dark" style={{ minWidth: "44rem" }}>Weekly statistics</h3>
                 </div>
@@ -38,6 +35,6 @@ export default class DStats extends React.Component<any, any> {
                     </div>
 
                 </div>
-            </React.Component>)
+            </React.Fragment>)
     }
 }
