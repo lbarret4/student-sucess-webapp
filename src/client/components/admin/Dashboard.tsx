@@ -28,7 +28,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
         // await fetch('http://quotes.rest/qod.json') 
         //     .then(res => res.json())
         //     .then(ob => this.setState({ quote: ob }))
-        
+
         this.setState({
             blogs,
         });

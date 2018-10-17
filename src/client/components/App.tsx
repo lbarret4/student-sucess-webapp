@@ -11,7 +11,7 @@ import Footer from './shared/Footer';
 import PrivateRoute from './admin/privateRoute';
 import Logout from './admin/Logout';
 import Dashbord from './admin/Dashboard';
-import Testing from './admin/testing'
+// import Testing from './admin/testing'
 import Profile from './admin/Profile'
 import EditProfile from './admin/EditProfile'
 
@@ -29,7 +29,7 @@ export default class App extends React.Component {
                 <Route exact path="/logout" component={Logout} />
                 <Route exact path="/register" component={Register} />
                 <PrivateRoute exact path="/admin" component={Compose} />
-                <Route path="/testing" component={Testing} />
+                {/* <Route path="/testing" component={Testing} /> */}
                 <PrivateRoute path="/EditProfile" component={EditProfile}/>
                 <Footer></Footer>
                 </>
