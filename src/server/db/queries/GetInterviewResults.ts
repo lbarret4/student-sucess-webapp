@@ -4,7 +4,7 @@ export default (userid?: any) => {
     return new Promise<IQueryGetInterviewResults>((resolve, reject) => {
         pool.query(`
         SELECT
-            i.employer_id, i.interview_date
+            i.employer_id, i.interview_date, i.challenge_rcvd, i.challenge_due
         FROM 
             interviews i 
         join 
@@ -25,4 +25,6 @@ export default (userid?: any) => {
 export interface IQueryGetInterviewResults {
     employer_id?: number;
     interview_date?: Date;
+    challenge_rcvd?: Date;
+    challenge_due?: Date;
 }
