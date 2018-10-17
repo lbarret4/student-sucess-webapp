@@ -58,14 +58,14 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
 
         return (
             <main className="py-5">
-                <div className="container py-5">
+                 <div className="container ">
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
                             {alert}
                         </div>
                     </div>
                     <div className="row">
-                        <form className="col-md-4 offset-md-4" onSubmit={ this.SaveBlog }>
+                        <form className="col-md-6 offset-md-3" onSubmit={ this.SaveBlog }>
                             <div className="form-row">
                                 <div className="col form-group">
                                     <input className="form-control" type="text" placeholder="Title" onChange={ (e) => { this.setState({title: e.target.value } )} } required />
@@ -83,8 +83,8 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
                             </div>
                         </form>
                     </div>
-                </div>
-            </main>
+                 </div>
+             </main>
         );
     }
 }

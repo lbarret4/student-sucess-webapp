@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 
 import TableRouter from 'tablerouter';
-import { ICareerServices, CareerServices} from '../../db';
+import { INetworking, Networking} from '../../db';
 
 const isAdmin: RequestHandler = (req, res, next) => {
 
@@ -12,8 +12,8 @@ const isAdmin: RequestHandler = (req, res, next) => {
     return next();
 }
 
-export default new TableRouter<ICareerServices>(CareerServices, {
+export default new TableRouter<INetworking>(Networking, {
     canDelete: isAdmin,
     canWrite: isAdmin,
     canRead: isAdmin
-}/*empty object is where u add privileges ex: canWrite, canDelete is Admin*/).Router
+}).Router

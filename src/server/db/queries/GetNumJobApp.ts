@@ -1,12 +1,15 @@
 import pool from '../pool';
 
-export default () => { 
+export default (userid?: any) => { 
     return new Promise<IQueryGetCommitNum>((resolve, reject) => {
         pool.query(`
-        SELECT
-            a.company_info, a.date_submitted
-        FROM 
-            applications a join employer_info ei on a.company_info = ei.id`, 
+        Select
+            count(a.userid)
+        From
+	        applications a
+        WHERE
+            a.userid = ?`, 
+            userid,
             (err, results) => {
             if(err) {
                 reject(err);
@@ -18,6 +21,5 @@ export default () => {
 }
 
 export interface IQueryGetCommitNum {
-    company_info?: number;
-    date_submitted?: Date;
+    userid?: number;
 }
