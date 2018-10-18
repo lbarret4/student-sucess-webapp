@@ -5,6 +5,7 @@ import { Formik, Form, Field, FormikErrors, FormikActions, FormikProps, FormikVa
 import Alert, { MessageTypes } from '../../shared/Alert';
 import * as Yup from "yup";
 import * as DateTime from "react-datetime";
+import json, { User } from '../../../utils/api';
 
 export const DisplayFormikState = (props: any) => (
     <div
@@ -37,19 +38,23 @@ interface FormValues {
 }
 
 
-export class NetworkForms extends React.Component<RouteComponentProps, any>{
+export class NetworkForms extends React.Component<RouteComponentProps, FormValues>{
     constructor(props: any) {
         super(props);
-    }
-    render() {
-
-        const initialValues: FormValues = {
+        this.state={
             contact: '',
             company: '',
             activity: '',
             date: new Date(Date.now()),
             file: ''
-        };
+        }
+    }
+
+  
+    
+    render() {
+
+        const initialValues = this.state;
 
 
 
@@ -58,12 +63,22 @@ export class NetworkForms extends React.Component<RouteComponentProps, any>{
                 <h5 className="card-title">Fill in your networking activities this week.</h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues,{resetForm,setSubmitting}) =>
-                    setTimeout(()=>{ 
+                    onSubmit={(values: FormValues,{resetForm,setSubmitting}) =>{
                         resetForm();
-                        alert(JSON.stringify(values, null, 2));
+                        let date = JSON.parse(JSON.stringify(values.date)).slice(0,-1);                        
+                        let data=
+                        {
+                            user:User.userid,
+                            network_date:date,
+                            contact:values.contact,
+                            company_name:values.company,
+                            attachment:values.file,
+                            net_activities:values.activity,
+                        }
+                        let results = json('/api/networking','POST',data);
+                        alert(JSON.stringify(data, null, 2));                    
                         setSubmitting(false);
-                    },2000)}
+                    }}
                     validationSchema={Yup.object().shape(
                         {
                             contact: Yup.string().required('Please enter your contact\'s company name'),
