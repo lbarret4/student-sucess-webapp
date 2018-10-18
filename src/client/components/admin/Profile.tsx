@@ -8,13 +8,13 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            firstname: 'JimJim',
-            lastname: 'MacGee',
-            dob: '01/02/1993',
-            city: 'New York City',
-            usstate: 'NY',
+            firstname: '',
+            lastname: '',
+            dob: '',
+            city: '',
+            usstate: '',
             email: '',
-            github: 'JimJimMac',
+            github: '',
             password: '',
             today: 0,
             tooYoung: false,
@@ -23,14 +23,17 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     }
 
     componentWillMount() {
-        this.setState({
-            firstname: User.firstname,
-            lastname: User.lastname,
-            dob: User.dob,
-            city: User.city,
-            usstate: User.usstate,
-            github: User.github,
-        })
+        json(`/api/users/${User.userid}`)
+        .then( user => this.setState({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            dob: user.dob,
+            city: user.city,
+            usstate: user.state,
+            github: user.github,
+            image: user.image
+        }));
+        
     }
 
 
