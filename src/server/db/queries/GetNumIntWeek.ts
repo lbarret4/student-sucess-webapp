@@ -14,7 +14,7 @@ export default (userid: any, start: any, end: any) => {
         and 
             i._created 
         BETWEEN 
-            "?" and "?"`,
+            ? and ?`,
         [userid, start, end],
             (err, results) => {
             if(err) {

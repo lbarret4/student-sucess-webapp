@@ -12,7 +12,7 @@ export default (userid?: any) => {
         WHERE
             cs.service_type = 4
         and 
-            u.id = ?;"
+            u.id = ?
             `, userid, 
             (err, results) => {
                 if (err) {
