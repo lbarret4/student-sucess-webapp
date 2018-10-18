@@ -10,7 +10,7 @@ export default class InputForms extends React.Component<RouteComponentProps> {
     render() {
         let formTabs: string[] = ['Network', 'Interview', 'Application','Career Services','Summary'];
         return (
-            <main className='py-5'>
+            <main className='py-5' style={{marginLeft: "200px"}}>
                 <div className="container py-5">
                     <div className="card text-center" >
                         <NavTabs formTabs={[...formTabs]} />

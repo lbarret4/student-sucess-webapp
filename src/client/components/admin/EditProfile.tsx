@@ -4,61 +4,64 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { isLoggedIn } from '../../utils/api';
 
 import Alert, { MessageTypes } from '../shared/Alert';
+import { isError } from 'util';
 
 export default class Navbar extends React.Component<any, IRegisterState> {
 
     constructor(props: any) {
         super(props);
         this.state = {
-            firstname: 'JimJim',
-            lastname: 'MacGee',
-            dob: '01/02/1993',
-            city: 'New York City',
-            usstate: 'NY',
-            email: 'jimjim@test.com',
-            github: 'JimJimMac',
-            password: 'Potat0s',
+            firstname: '',
+            lastname: '',
+            dob: '',
+            city: '',
+            usstate: '',
+            email: '',
+            github: '',
+            password: '',
             today: 0,
             tooYoung: false,
             image: '',
-            passwordConfirmation: '',
         };
     }
 
-    // componentWillMount() {
-    //     this.setState({
-    //         firstname: User.firstname,
-    //         lastname: User.lastname,
-    //         dob: User.dob,
-    //         city: User.city,
-    //         usstate: User.usstate,
-    //         github: User.github,
-    //     })
-    // }
+    componentWillMount() {
+        json(`/api/users/${User.userid}`)
+        .then( user => this.setState({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            dob: user.dob,
+            city: user.city,
+            usstate: user.state,
+            email: user.email,
+            github: user.github,
+            image: user.image
+        }));
+        
+    }
 
     MakeChanges = async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
-        if (this.state.password == this.state.passwordConfirmation) {
+
             try {
-                // let token = await json('/auth/register',
-                //     'POST',
-                //     this.state
-                // );
-                // this.props.history.push('/dashboard');
+                let result = await json('/auth/login', 'POST', 
+                {   
+                    password: this.state.password 
+                });
             } catch (e) {
                 console.log(e);
+                this.setState({ tooYoung: true })
             }
-        } else {
-            this.setState({ tooYoung: true })
         }
-    }
 
+
+    
     render() {
-        if (this.state.image) {
-
-        } else {
+        if (this.state.image == '') {
             this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
+        } else {
+            
         }
 
         let alert;
@@ -69,7 +72,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
         }
 
         return (
-            <main className="py-5">
+            <main className="py-5" style={{marginLeft: "200px"}}>
                 <div className="container py-5">
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
@@ -78,6 +81,11 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                     </div>
                     <form className="row" onSubmit={this.MakeChanges}>
                         <div className="col-md-4 offset-md-4">
+                        <div className="form-row">
+                                <div className="col form-group">
+                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
+                                </div>
+                            </div>
                             <div className="form-row">
                                 <div className="col form-group">
                                     <input type="text" className="form-control" value={this.state.firstname} placeholder="First Name" onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
@@ -110,7 +118,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="password" className="form-control" placeholder="Enter Password" onChange={(e) => { this.setState({ passwordConfirmation: e.target.value }) }} required />
+                                    <input type="password" className="form-control" placeholder="Enter Password" onChange={(e) => { this.setState({ password: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row form-group">
@@ -138,5 +146,4 @@ interface IRegisterState {
     today: number;
     tooYoung: boolean;
     image: string;
-    passwordConfirmation: string,
 }

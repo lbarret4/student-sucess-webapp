@@ -8,13 +8,13 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            firstname: 'JimJim',
-            lastname: 'MacGee',
-            dob: '01/02/1993',
-            city: 'New York City',
-            usstate: 'NY',
+            firstname: '',
+            lastname: '',
+            dob: '',
+            city: '',
+            usstate: '',
             email: '',
-            github: 'JimJimMac',
+            github: '',
             password: '',
             today: 0,
             tooYoung: false,
@@ -22,16 +22,19 @@ export default class Navbar extends React.Component<any, IRegisterState> {
         };
     }
 
-    // componentWillMount() {
-    //     this.setState({
-    //         firstname: User.firstname,
-    //         lastname: User.lastname,
-    //         dob: User.dob,
-    //         city: User.city,
-    //         usstate: User.usstate,
-    //         github: User.github,
-    //     })
-    // }
+    componentWillMount() {
+        json(`/api/users/${User.userid}`)
+        .then( user => this.setState({
+            firstname: user.firstname,
+            lastname: user.lastname,
+            dob: user.dob,
+            city: user.city,
+            usstate: user.state,
+            github: user.github,
+            image: user.image
+        }));
+        
+    }
 
 
 
@@ -44,8 +47,8 @@ export default class Navbar extends React.Component<any, IRegisterState> {
 
         if (isLoggedIn()) {
             return (
-                <main className="py-5">
-                    <div className="sidenav d-flex flex-column align-items-start" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white" }}>
+                <main className="py-5" style={{float: "left"}}>
+                    <div className="sidenav d-flex flex-column align-items-start" style={{ height: "100%", width: "200px", position: "fixed", zIndex: "auto", top: "20", left: "0", backgroundColor: "#0091ea", overflowX: "hidden", paddingTop: "20px", color: "white"}}>
                         <img src={this.state.image} height="200px" style={{ display: "block", marginLeft: "auto", marginRight: "auto" }} />
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>Name: {this.state.firstname} {this.state.lastname}</div>
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>Birthday: {this.state.dob}</div>
@@ -58,6 +61,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                     <div className="container py-5">
 
                     </div>
+                    {/* {console.log(User)} */}
                 </main>
             );
         } else {
