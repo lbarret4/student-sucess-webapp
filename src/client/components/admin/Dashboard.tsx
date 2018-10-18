@@ -16,20 +16,28 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
         this.state = {
             username: '',
             blogs: [],
-            quote: []
+            quote: {},
         };
     }
 
     async componentWillMount() {
         // let blogs = await json('/api/q/blogsauthors');
         //
-        // fetches the quote of the day
-        //
-        await fetch('http://quotes.rest/qod.json')
-            .then(res => res.json())
-            .then(ob => this.setState({ quote: ob }))
+        // // fetches the quote of the day
+        // //
+            try {
+                let res = await fetch(`http://quotes.rest/qod`, { headers: { 'Accept': "application/json" } });
+                let someCrap = await res.json();
+                let quote = await someCrap.contents.quotes[0];
+                this.setState({
+                    quote
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        
 
-        // this.setState({
+        // // this.setState({
         //     blogs,
         // });
     }
@@ -38,8 +46,11 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
         return (
             <main className="py-5" style={{ marginLeft: "200px" }}>
                 <div className="container py-5 text-center ">
-                    <p>Random Quote:
-                   {console.log(this.state.quote.contents)}
+                    <p>
+                        <h2>Quote of the Day</h2>
+                   <h3>"{this.state.quote.quote}"</h3>
+                   <h6> - {this.state.quote.author}</h6>
+                   <p style={{fontSize: "xx-small"}}>courtesy of https://theysaidso.com/api/</p>
                     </p>
                     <div className="card-deck d-flex justify-content-center">
 
@@ -62,22 +73,5 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
 interface IDashboardState {
     username: string;
     blogs: { id: number, title: string, publishedts: Date, firstname: string, lastname: string }[]
-    quote: {
-        success: { total: number; };
-        contents: {
-            quotes: {
-                quote: string;
-                length: string;
-                author: string;
-                tags: any[]; //lazy
-                category: string;
-                date: string;
-                permalink: string;
-                title: string;
-                background: string;
-                id: string;
-            }
-            copyright: string;
-        }
-    }[]
+    quote: any
 }
