@@ -34,11 +34,11 @@ export interface IBlog {
 
 export const Users = new Table<IUser>(pool, 'users', {
     id: mysql.Types.INT24,
-    first_name: mysql.Types.VARCHAR,
-    last_name: mysql.Types.VARCHAR,
+    firstname: mysql.Types.VARCHAR,
+    lastname: mysql.Types.VARCHAR,
     email: mysql.Types.VARCHAR,
     password: mysql.Types.VARCHAR,
-    user_role: mysql.Types.VARCHAR,
+    role: mysql.Types.VARCHAR,
     img: mysql.Types.BLOB,
     program_id: mysql.Types.INT24,
     dob: mysql.Types.VARCHAR,
@@ -51,9 +51,9 @@ export interface IUser {
     id?: number;
     email?: string;
     password?: string;
-    first_name?: string;
-    last_name?: string;
-    user_role?: string;
+    firstname?: string;
+    lastname?: string;
+    role?: string;
     img?: string;
     program_id?: number;
     dob?: string;
