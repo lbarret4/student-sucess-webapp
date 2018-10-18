@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import * as DateTime from "react-datetime";
 import { DisplayFormikState } from './NetworkForms';
 import * as moment from 'moment';
+import { json, User } from '../../../utils/api';
 
 
 interface FormValues {
@@ -15,19 +16,39 @@ interface FormValues {
 
 }
 
-export class CareerServicesForms extends React.Component<RouteComponentProps, any>{
+interface ICareerServicesFormState {
+    initialValues: FormValues;
+    services: string[];
+
+}
+
+export class CareerServicesForms extends React.Component<RouteComponentProps, ICareerServicesFormState>{
     constructor(props: any) {
         super(props);
+        this.state = {
+            initialValues: {
+                date: moment(),
+                service: 'choose'
+            },
+            services: []
+        }
     }
+
+    async componentDidMount() {
+        let data = await json('/api/services'/* , 'GET' */);
+        let services: any = await data.map((service: any) => {
+            return service.service_type;
+        });
+        console.log(services)
+        this.setState({ services })
+    }
+
     render() {
-        const initialValues: FormValues = {
-            date: moment(),
-            service: 'choose',
-        };
-        const services =['Resume Requirements','LinkedIn Improvements','Interview Suggestions','Mock Interview','Career Coaching','Headshot Suggestions','Networking Tips'];
-        const options= ['Choose a service',...services].map((service,index)=>{
-            let name = index === 0 ? initialValues.service : `service${index}`;
-        
+        const initialValues: FormValues = this.state.initialValues;
+        const services = this.state.services;
+        const options = ['Choose a service', ...services].map((service, index) => {
+            let name = index === 0 ? initialValues.service : `${index}`;
+
             return (
                 <option value={name} key={index}>{service}</option>
 
@@ -39,16 +60,23 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, an
                 <h5 className="card-title">Fill in your scheduled career support services </h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues, { resetForm, setSubmitting }) =>
-                    setTimeout(() => {                                         
-                        alert(JSON.stringify(values, null, 2));                        
-                        setSubmitting(false);          
-                        resetForm();
-                                             
-                    }, 2000)}
+                    onSubmit={(values: FormValues, { resetForm, setSubmitting }) => {
+                        let date = JSON.parse(JSON.stringify(values.date)).slice(0,-1);                        
+                        let data=
+                        {
+                            userid: User.userid,
+                            service_type: values.service,
+                            _created: date
+                        }
+                        let results = json('/api/careerservices','POST',data);
+                            alert(JSON.stringify(data, null, 2));
+                            setSubmitting(false);
+                            resetForm();
+
+                        }}
                     validationSchema={Yup.object().shape({
-                        date:Yup.date().typeError('Please enter a valid date and time'),
-                        service:Yup.string().test('match','Please select a career service',value =>value !== 'choose')
+                        date: Yup.date().typeError('Please enter a valid date and time'),
+                        service: Yup.string().test('match', 'Please select a career service', value => value !== 'choose')
                     })}
                 >
                     {(props: FormikProps<FormikValues>) => {
@@ -109,7 +137,7 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, an
 
                     }}
 
-                </Formik>               
+                </Formik>
             </div>
         );
     }
