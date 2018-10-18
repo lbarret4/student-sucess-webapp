@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/commitnumber/:id', async (req, res, next) => {
 
     try {
-        res.json(await Queries.GetCommitNum(req.params.userid));
+        res.json(await Queries.GetCommitNum(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
@@ -15,7 +15,7 @@ router.get('/commitnumber/:id', async (req, res, next) => {
 
 router.get('/interviewresults/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetInterviewResults(req.params.userid));
+        res.json(await Queries.GetInterviewResults(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
@@ -24,7 +24,7 @@ router.get('/interviewresults/:id', async (req, res, next) => {
 
 router.get('/numberintweek/:id/:start/:end', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumIntWeek(req.params.userid, req.params.start, req.params.end));
+        res.json(await Queries.GetNumIntWeek(req.params.id, req.params.start, req.params.end));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
@@ -33,7 +33,7 @@ router.get('/numberintweek/:id/:start/:end', async (req, res, next) => {
 
 router.get('/numberjobapps/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumJobApp(req.params.userid));
+        res.json(await Queries.GetNumJobApp(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
@@ -42,7 +42,7 @@ router.get('/numberjobapps/:id', async (req, res, next) => {
 
 router.get('/numbermockint/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumMockInt(req.params.userid));
+        res.json(await Queries.GetNumMockInt(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
@@ -51,7 +51,7 @@ router.get('/numbermockint/:id', async (req, res, next) => {
 
 router.get('/numbernetact/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumNetworkAct(req.params.userid));
+        res.json(await Queries.GetNumNetworkAct(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
