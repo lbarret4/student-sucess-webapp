@@ -3,26 +3,26 @@ import { Queries } from '../../db';
 
 const router = express.Router();
 
-router.get('/commitnumber', async (req, res, next) => {
+router.get('/commitnumber/:id', async (req, res, next) => {
 
     try {
-        res.json(await Queries.GetCommitNum());
+        res.json(await Queries.GetCommitNum(req.params.userid));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
     }
 });
 
-router.get('/interviewresults', async (req, res, next) => {
+router.get('/interviewresults/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetInterviewResults());
+        res.json(await Queries.GetInterviewResults(req.params.userid));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
     }
 });
 
-router.get('/numberintweek', async (req, res, next) => {
+router.get('/numberintweek/:id/:start/:end', async (req, res, next) => {
     try {
         res.json(await Queries.GetNumIntWeek(req.params.userid, req.params.start, req.params.end));
     } catch(e) {
@@ -31,27 +31,27 @@ router.get('/numberintweek', async (req, res, next) => {
     }
 });
 
-router.get('/numberjobapps', async (req, res, next) => {
+router.get('/numberjobapps/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumJobApp());
+        res.json(await Queries.GetNumJobApp(req.params.userid));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
     }
 });
 
-router.get('/numbermockint', async (req, res, next) => {
+router.get('/numbermockint/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumMockInt());
+        res.json(await Queries.GetNumMockInt(req.params.userid));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
     }
 });
 
-router.get('/numbernetact', async (req, res, next) => {
+router.get('/numbernetact/:id', async (req, res, next) => {
     try {
-        res.json(await Queries.GetNumNetworkAct());
+        res.json(await Queries.GetNumNetworkAct(req.params.userid));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
