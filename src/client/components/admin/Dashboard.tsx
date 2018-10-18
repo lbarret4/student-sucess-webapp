@@ -16,22 +16,22 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
         this.state = {
             username: '',
             blogs: [],
-            quote: [],
+            quote: {},
         };
     }
 
     async componentWillMount() {
-        let blogs = await json('/api/q/blogsauthors');
+        // let blogs = await json('/api/q/blogsauthors');
         //
         // fetches the quote of the day
         //
-        // await fetch('http://quotes.rest/qod.json') 
-        //     .then(res => res.json())
-        //     .then(ob => this.setState({ quote: ob }))
+        await fetch('http://quotes.rest/qod.json') 
+            .then(res => res.json())
+            .then(ob => this.setState({ quote: ob }))
 
-        this.setState({
-            blogs,
-        });
+        // this.setState({
+        //     blogs,
+        // });
     }
 
     render() {
@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
             <main className="py-5" style={{marginLeft: "200px"}}>
                 <div className="container py-5 text-center ">
                     <p>Random Quote:
-                    <div>{this.state.quote}</div>
+                   {console.log(this.state.quote)}
                     </p>
                     <div className="card-deck d-flex justify-content-center">
 
@@ -62,5 +62,5 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
 interface IDashboardState {
     username: string;
     blogs: { id: number, title: string, publishedts: Date, firstname: string, lastname: string }[]
-    quote: [],
+    quote: {},
 }
