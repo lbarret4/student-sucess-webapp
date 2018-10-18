@@ -21,7 +21,7 @@ class MyCalendar extends React.Component<any, any>{
         'end': new Date(2015, 3, 10)
       },
       {
-        start: new Date(2015, 3, 3,5,35),
+        start: new Date(2015, 3, 3, 5, 35),
         end: new Date(moment([2015, 3, 3]).add(1, "h").format('LLLL')),
         title: "Some title"
       }
@@ -30,19 +30,23 @@ class MyCalendar extends React.Component<any, any>{
 
   render() {
     return (
-      <div style={{ height: "600px" }}>
+      <main className="py-5">
+        <div className="container py-5 text-center " style={{marginLeft: "200px"}}>
+          <div className="d-flex justify-content-center" style={{ height: "500px" }}>
 
 
-        <BigCalendar
+            <BigCalendar
 
-          localizer={localizer}
-          views={allViews}
-          events={this.state.events}
-          defaultDate={new Date(2015, 3, 1)}
-          startAccessor="start"
-          endAccessor="end"
-        />
-      </div>
+              localizer={localizer}
+              views={allViews}
+              events={this.state.events}
+              defaultDate={new Date()}
+              startAccessor="start"
+              endAccessor="end"
+            />
+          </div>
+        </div>
+      </main>
     );
   }
 }

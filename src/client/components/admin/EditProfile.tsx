@@ -72,7 +72,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
         }
 
         return (
-            <main className="py-5">
+            <main className="py-5" style={{marginLeft: "200px"}}>
                 <div className="container py-5">
                     <div className="row">
                         <div className="col-md-4 offset-md-4">

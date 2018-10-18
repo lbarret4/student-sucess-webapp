@@ -36,7 +36,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
 
     render() {
         return (
-            <main className="py-5">
+            <main className="py-5" style={{marginLeft: "200px"}}>
                 <div className="container py-5 text-center ">
                     <p>Random Quote:
                     <div>{this.state.quote}</div>

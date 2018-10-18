@@ -61,7 +61,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                     <div className="container py-5">
 
                     </div>
-                    {console.log(User)}
+                    {/* {console.log(User)} */}
                 </main>
             );
         } else {
