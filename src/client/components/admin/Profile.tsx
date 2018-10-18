@@ -22,16 +22,16 @@ export default class Navbar extends React.Component<any, IRegisterState> {
         };
     }
 
-    // componentWillMount() {
-    //     this.setState({
-    //         firstname: User.firstname,
-    //         lastname: User.lastname,
-    //         dob: User.dob,
-    //         city: User.city,
-    //         usstate: User.usstate,
-    //         github: User.github,
-    //     })
-    // }
+    componentWillMount() {
+        this.setState({
+            firstname: User.firstname,
+            lastname: User.lastname,
+            dob: User.dob,
+            city: User.city,
+            usstate: User.usstate,
+            github: User.github,
+        })
+    }
 
 
 
@@ -58,6 +58,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                     <div className="container py-5">
 
                     </div>
+                    {console.log(User)}
                 </main>
             );
         } else {
