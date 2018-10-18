@@ -7,16 +7,22 @@ export default class Home extends React.Component<any, IHomeState>{
         return (
             <main className="py-5">
                 {isLoggedIn() ?
-                    <div className="container py-5" style = {{ marginLeft: "200px" }}>
+                    <div className="container py-5" style={{ marginLeft: "200px" }}>
                         <h1 className="text-center">Welcome to the Covalence Student Success App!</h1>
-                        <h2 className="text-center">Using this app, you'll be able to do things and such!</h2>
-                        <h3 className="text-center">Get started by  <Link to="/register">registering</Link> or by loging in through the Navbar!</h3>
+                        <div className="text-center">Using this app, you'll be able to schedual interviews, meeting, and many other things.</div>
+                        <div className="text-center">Use your GitHub user ID to track how many commits you've made each week.</div>
+                        <div className="text-center">Display your most recent blog post and stay on track with daily and weekly check lists!</div>
+                        <div className="text-center">Take control of your Covalence Experiance and set yourself up for succsess!</div>
+                        <div className="text-center">Get started by <Link to="/register">registering</Link> or by loging in through the Navbar!</div>
                     </div>
                     :
                     <div className="container py-5">
                         <h1 className="text-center">Welcome to the Covalence Student Success App!</h1>
-                        <h2 className="text-center">Using this app, you'll be able to do things and such!</h2>
-                        <h3 className="text-center">Get started by  <Link to="/register">registering</Link> or by loging in through the Navbar!</h3>
+                        <div className="text-center">Using this app, you'll be able to schedual interviews, meeting, and many other things.</div>
+                        <div className="text-center">Use your GitHub user ID to track how many commits you've made each week.</div>
+                        <div className="text-center">Display your most recent blog post and stay on track with daily and weekly check lists!</div>
+                        <div className="text-center">Take control of your Covalence Experiance and set yourself up for succsess!</div>
+                        <div className="text-center">Get started by <Link to="/register">registering</Link> or by loging in through the Navbar!</div>
                     </div>}
 
             </main>
