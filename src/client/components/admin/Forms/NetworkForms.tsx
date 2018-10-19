@@ -6,6 +6,7 @@ import Alert, { MessageTypes } from '../../shared/Alert';
 import * as Yup from "yup";
 import * as DateTime from "react-datetime";
 import json, { User } from '../../../utils/api';
+import * as moment from 'moment';
 
 export const DisplayFormikState = (props: any) => (
     <div
@@ -41,43 +42,45 @@ interface FormValues {
 export class NetworkForms extends React.Component<RouteComponentProps, FormValues>{
     constructor(props: any) {
         super(props);
-        this.state={
+        this.state = {
             contact: '',
             company: '',
             activity: '',
-            date: new Date(Date.now()),
-            file: ''
+            date: moment().format('YYYY-MM-DD'),
+            file: null
         }
     }
 
-  
-    
+
+
     render() {
 
         const initialValues = this.state;
-
-
-
         return (
             <div className="card-body">
                 <h5 className="card-title">Fill in your networking activities this week.</h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues,{resetForm,setSubmitting}) =>{
-                        resetForm();
-                        let date = JSON.parse(JSON.stringify(values.date)).slice(0,-1);                        
-                        let data=
-                        {
-                            user:User.userid,
-                            network_date:date,
-                            contact:values.contact,
-                            company_name:values.company,
-                            attachment:values.file,
-                            net_activities:values.activity,
+                    onSubmit={async (values: FormValues, { resetForm, setSubmitting }) => {
+                        try {
+                            resetForm();
+                            let data =
+                            {
+                                user: User.userid,
+                                network_date: values.date,
+                                contact: values.contact,
+                                company_name: values.company,
+                                attachment: values.file,
+                                net_activities: values.activity,
+                            }
+                            if (values.file === null) delete data.attachment;
+                            let results = await json('/api/networking', 'POST', data);
+                            alert(JSON.stringify(data, null, 2));
+                            setSubmitting(false);
+                        } catch (error) {
+                            console.log(error);
                         }
-                        let results = json('/api/networking','POST',data);
-                        alert(JSON.stringify(data, null, 2));                    
-                        setSubmitting(false);
+
                     }}
                     validationSchema={Yup.object().shape(
                         {
@@ -85,16 +88,16 @@ export class NetworkForms extends React.Component<RouteComponentProps, FormValue
                             company: Yup.string().required('Please enter a company name'),
                             activity: Yup.string().required('Please enter an activity description'),
                             date: Yup.date().typeError('Please enter a valid date'),
-                            file: Yup.string()
+                            file: Yup.string().nullable(true)
                         }
                     )}
                 >
                     {(props: FormikProps<FormikValues>) => {
-                        const { values, setFieldValue,isSubmitting } = props;
+                        const { values, setFieldValue, isSubmitting } = props;
                         return (
                             <Form className="py-5">
                                 <div className="form-row text-left ">
-                                <div className='col-md-4'>
+                                    <div className='col-md-4'>
                                         <ErrorMessage name='date'>
                                             {msg => (
                                                 <Alert message={msg} messageType={MessageTypes.Error} />
@@ -108,7 +111,7 @@ export class NetworkForms extends React.Component<RouteComponentProps, FormValue
                                             )}
                                         </ErrorMessage>
                                     </div>
-                                     <div className='col-md-4'>
+                                    <div className='col-md-4'>
                                         <ErrorMessage name='company'>
                                             {msg => (
                                                 <Alert message={msg} messageType={MessageTypes.Error} />
@@ -125,8 +128,8 @@ export class NetworkForms extends React.Component<RouteComponentProps, FormValue
                                             input={true}
                                             timeFormat={false}
                                             inputProps={{ name: 'date' }}
-                                            defaultValue={values.date}
-                                            onChange={value => setFieldValue('date', value)}
+                                            defaultValue={moment(values.date)}
+                                            onChange={value => setFieldValue('date', moment(value).format('YYYY-MM-DD'))}
                                         />
                                     </ div>
                                     <div className="form-group col-md-4">
@@ -190,9 +193,9 @@ export class NetworkForms extends React.Component<RouteComponentProps, FormValue
                                 </div>
                                 <div className="form-row  text-right ">
                                     <div className='col-md-4 offset-md-8'>
-                                        <button 
-                                        className="btn btn-primary btn-lg btn-block"
-                                        disabled={isSubmitting}
+                                        <button
+                                            className="btn btn-primary btn-lg btn-block"
+                                            disabled={isSubmitting}
                                         >
                                             Submit
                                         </button>
