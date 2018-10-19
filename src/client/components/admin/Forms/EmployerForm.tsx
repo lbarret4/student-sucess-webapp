@@ -4,6 +4,8 @@ import { Formik, Form, Field, FormikErrors, FormikActions, FormikProps, FormikVa
 import Alert, { MessageTypes } from '../../shared/Alert';
 import * as Yup from "yup";
 import { DisplayFormikState } from './NetworkForms';
+import json from '../../../utils/api';
+
 
 
 interface FormValues {
@@ -17,13 +19,21 @@ interface FormValues {
     zip: string;
 }
 
-export class EmployerForm extends React.Component<RouteComponentProps, any>{
+interface IEmployerFormProps extends RouteComponentProps {
+    match: {
+        isExact: boolean,
+        params: {
+            id: number
+        }
+        path: string
+        url: string
+    }
+}
+
+export class EmployerForm extends React.Component<IEmployerFormProps, FormValues>{
     constructor(props: any) {
         super(props);
-    }
-
-    render() {
-        const initialValues: FormValues = {
+        this.state = {
             contact: '',
             company: '',
             phone: '',
@@ -32,36 +42,64 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
             city: '',
             state: 'choose',
             zip: '',
-        };
-        const STATES = [ "AK - Alaska", "AL - Alabama", "AR - Arkansas", "AS - American Samoa", "AZ - Arizona", "CA - California", 
-        "CO - Colorado", "CT - Connecticut", "DC - District of Columbia", "DE - Delaware", "FL - Florida", "GA - Georgia", "GU - Guam", 
-        "HI - Hawaii", "IA - Iowa", "ID - Idaho", "IL - Illinois", "IN - Indiana", "KS - Kansas", "KY - Kentucky", "LA - Louisiana", 
-        "MA - Massachusetts", "MD - Maryland", "ME - Maine", "MI - Michigan", "MN - Minnesota", "MO - Missouri", "MS - Mississippi", 
-        "MT - Montana", "NC - North Carolina", "ND - North Dakota", "NE - Nebraska", "NH - New Hampshire", "NJ - New Jersey", 
-        "NM - New Mexico", "NV - Nevada", "NY - New York", "OH - Ohio", "OK - Oklahoma", "OR - Oregon", "PA - Pennsylvania", 
-        "PR - Puerto Rico", "RI - Rhode Island", "SC - South Carolina", "SD - South Dakota", "TN - Tennessee", "TX - Texas", "UT - Utah", 
-        "VA - Virginia", "VI - Virgin Islands", "VT - Vermont", "WA - Washington", "WI - Wisconsin", "WV - West Virginia", "WY - Wyoming"];
+        }
+    }
 
-        let options = ['choose',...STATES].map((state, index) => {
+    render() {
+        const initialValues = this.state;
+        const STATES = ["AK - Alaska", "AL - Alabama", "AR - Arkansas", "AS - American Samoa", "AZ - Arizona", "CA - California",
+            "CO - Colorado", "CT - Connecticut", "DC - District of Columbia", "DE - Delaware", "FL - Florida", "GA - Georgia", "GU - Guam",
+            "HI - Hawaii", "IA - Iowa", "ID - Idaho", "IL - Illinois", "IN - Indiana", "KS - Kansas", "KY - Kentucky", "LA - Louisiana",
+            "MA - Massachusetts", "MD - Maryland", "ME - Maine", "MI - Michigan", "MN - Minnesota", "MO - Missouri", "MS - Mississippi",
+            "MT - Montana", "NC - North Carolina", "ND - North Dakota", "NE - Nebraska", "NH - New Hampshire", "NJ - New Jersey",
+            "NM - New Mexico", "NV - Nevada", "NY - New York", "OH - Ohio", "OK - Oklahoma", "OR - Oregon", "PA - Pennsylvania",
+            "PR - Puerto Rico", "RI - Rhode Island", "SC - South Carolina", "SD - South Dakota", "TN - Tennessee", "TX - Texas", "UT - Utah",
+            "VA - Virginia", "VI - Virgin Islands", "VT - Vermont", "WA - Washington", "WI - Wisconsin", "WV - West Virginia", "WY - Wyoming"];
+
+        let options = ['choose', ...STATES].map((state, index) => {
             let name = index === 0 && index !== STATES.length - 1 ? initialValues.state : `state${index}`;
             return (
                 <option value={name}>{state}</option>
 
             );
         });
-
+        this.props.match.params.id
         return (
             <div className="card-body">
                 <h5 className="card-title">Fill in prospective employer's info</h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues, { resetForm, setSubmitting }) =>
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
+                    onSubmit={async (values: FormValues, { resetForm, setSubmitting }) => {
+                        try {
+                            let data =
+                            {
+                                contact: values.contact,
+                                company_name: values.company,
+                                phone: values.phone,
+                                address: values.street1,
+                                address_2: values.street2,
+                                city: values.city,
+                                state: values.state.slice(0, 2),
+                                zip: values.zip
+                            }
+                            let res1 = await json('/api/employerinfo', 'POST', data);
+                            let employerId = await res1.id;
+                            let id = this.props.match.params.id;
+                            if (this.props.match.url.includes('Interview')) {
+                                let res = await json(`/api/interviews/${id}`, 'PUT', { employer_id: employerId });
+                            } else if (this.props.match.url.includes('Application')) {
+                                let res = await json(`/api/applications/${id}`, 'PUT', { company_info: employerId });
+                            }
+                            alert(JSON.stringify(data, null, 2));
                             setSubmitting(false);
                             this.props.history.goBack();
                             resetForm();
-                        }, 2000)}
+
+                        } catch (error) {
+                            console.log(error)
+                        }
+
+                    }}
                     validationSchema={Yup.object().shape({
                         contact: Yup.string().required('Please enter contact'),
                         company: Yup.string().required('Please enter company name'),
@@ -114,7 +152,7 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                         />
                                     </div>
                                     <div className="form-group col-md-4">
-                                    <label htmlFor='company'>
+                                        <label htmlFor='company'>
                                             Company
                                             </label>
                                         <Field
@@ -125,7 +163,7 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                         />
                                     </div>
                                     <div className="form-group col-md-4">
-                                    <label htmlFor='phone'>
+                                        <label htmlFor='phone'>
                                             Phone
                                             </label>
                                         <Field
@@ -145,15 +183,15 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                     </ErrorMessage>
                                 </div>
                                 <div className="form-group text-left">
-                                <label htmlFor='street1'>
-                                            Address
+                                    <label htmlFor='street1'>
+                                        Address
                                             </label>
-                                        <Field
-                                            type='text'
-                                            name="street1"
-                                            placeholder="1235 Main St."
-                                            className="form-control"
-                                        />
+                                    <Field
+                                        type='text'
+                                        name="street1"
+                                        placeholder="1235 Main St."
+                                        className="form-control"
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <ErrorMessage name='street2'>
@@ -163,15 +201,15 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                     </ErrorMessage>
                                 </div>
                                 <div className="form-group text-left">
-                                <label htmlFor='street2'>
-                                            Address 2
+                                    <label htmlFor='street2'>
+                                        Address 2
                                             </label>
-                                        <Field
-                                            type='text'
-                                            name="street2"
-                                            placeholder="Apartment, studio, or floor"
-                                            className="form-control"
-                                        />
+                                    <Field
+                                        type='text'
+                                        name="street2"
+                                        placeholder="Apartment, studio, or floor"
+                                        className="form-control"
+                                    />
                                 </div>
                                 <div className="form-row text-left">
                                     <div className="col-md-6">
@@ -198,7 +236,7 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                 </div>
                                 <div className="form-row text-left">
                                     <div className="form-group col-md-6">
-                                    <label htmlFor='city'>
+                                        <label htmlFor='city'>
                                             City
                                             </label>
                                         <Field
@@ -208,7 +246,7 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                         />
                                     </div>
                                     <div className="form-group col-md-4">
-                                    <label htmlFor='state'>
+                                        <label htmlFor='state'>
                                             State
                                             </label>
                                         <Field component="select" name="state" className="form-control">
@@ -216,24 +254,24 @@ export class EmployerForm extends React.Component<RouteComponentProps, any>{
                                         </Field>
                                     </div>
                                     <div className="form-group col-md-2">
-                                    <label htmlFor='zip'>
+                                        <label htmlFor='zip'>
                                             Zip
                                             </label>
-                                        <Field 
-                                        type='text' 
-                                        name="zip" 
-                                        className="form-control"
-                                        />                                        
+                                        <Field
+                                            type='text'
+                                            name="zip"
+                                            className="form-control"
+                                        />
                                     </div>
                                 </div>
                                 <div className="form-row  text-right ">
                                     <div className='col-md-4 offset-md-8'>
-                                    <button 
-                                        className="btn btn-primary btn-lg btn-block"
-                                        disabled={isSubmitting}
+                                        <button
+                                            className="btn btn-primary btn-lg btn-block"
+                                            disabled={isSubmitting}
                                         >
                                             Submit
-                                        </button>                                       
+                                        </button>
                                     </div>
                                 </div>
 
