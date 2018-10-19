@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
             <main className="py-5" style={{ marginLeft: "200px" }}>
                 <div className="container py-5 text-center ">
                     <p>Random Quote:
-                   {console.log(this.state.quote.contents)}
+                   {/* {console.log(this.state.quote.contents)} */}
                     </p>
                     <div className="card-deck d-flex justify-content-center">
 
