@@ -1,7 +1,7 @@
 import pool from '../pool';
 
 export default (userid?: any) => { 
-    return new Promise<IQueryGetCommitNum>((resolve, reject) => {
+    return new Promise<IQueryGetNumJobApp>((resolve, reject) => {
         pool.query(`
         Select
             count(a.userid)
@@ -20,6 +20,6 @@ export default (userid?: any) => {
     });
 }
 
-export interface IQueryGetCommitNum {
+export interface IQueryGetNumJobApp {
     userid?: number;
 }
