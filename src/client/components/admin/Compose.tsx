@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { FormikActions } from 'formik';
 
 import json, { User } from '../../utils/api';
 import Alert, { MessageTypes } from '../shared/Alert';
@@ -12,9 +13,7 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
     constructor(props: any) {
         super(props);
         this.state = {
-            title: '',
             body: '',
-            authorid: User.userid,
             saveStatus: null
         }
     }
@@ -30,10 +29,8 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
 
         try {
             this.saving = true;
-            let result = await json('/api/blogs', 'POST', {
-                authorid: User.userid,
-                title: this.state.title,
-                body: this.state.body,
+            let result = await json('/api/jobactivities', 'POST', {
+                activity_content: this.state.body
             });
             if(result) {
                 this.setState({saveStatus: 'success' })
@@ -68,17 +65,12 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
                         <form className="col-md-6 offset-md-3" onSubmit={ this.SaveBlog }>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input className="form-control" type="text" placeholder="Title" onChange={ (e) => { this.setState({title: e.target.value } )} } required />
-                                </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="col form-group">
-                                    <textarea className="form-control" onChange={ (e) => { this.setState({body: e.target.value } )} } required />
+                                    <textarea className="form-control" placeholder="Description of Activity" onChange={ (e) => { this.setState({body: e.target.value } )} } required />
                                 </div>
                             </div>
                             <div className="form-row form-group">
                                 <div className="col">
-                                    <button className="btn btn-primary btn-lg w-100">Publish</button>
+                                    <button className="btn btn-primary btn-lg w-100" >Publish</button>
                                 </div>
                             </div>
                         </form>
@@ -91,8 +83,6 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
 
 interface IComposeProps extends RouteComponentProps { }
 interface IComposeState {
-    authorid?: number;
-    title?: string;
     body?: string;
     saveStatus?: string;
 }
