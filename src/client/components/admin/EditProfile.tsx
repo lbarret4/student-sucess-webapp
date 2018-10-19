@@ -16,10 +16,12 @@ export default class EditProfile extends React.Component<any, IEditState> {
             city: '',
             usstate: '',
             email: '',
+            oldemail: '',
             github: '',
             password: '',
             alert: false,
             image: '',
+            githubid: ''
         };
     }
 
@@ -32,11 +34,13 @@ export default class EditProfile extends React.Component<any, IEditState> {
                 city: user.city,
                 usstate: user.state,
                 email: user.email,
+                oldemail: user.email,
                 image: user.img
             }));
-        json(`/api/github/${User.userid}`)
+        json(`/api/github/find`, 'POST', {userid: User.userid})
             .then(github => this.setState({
-                github: github.github_link
+                github: github[0].github_link,
+                githubid: github[0].id
             }))
 
     }
@@ -48,8 +52,10 @@ export default class EditProfile extends React.Component<any, IEditState> {
         try {
             let result = await json('/auth/login', 'POST',
                 {
+                    email: this.state.oldemail,
                     password: this.state.password
                 });
+                console.log(await result);
             if (result) {
                 await json(`/api/users/${User.userid}`,
                     'PUT',
@@ -62,12 +68,12 @@ export default class EditProfile extends React.Component<any, IEditState> {
                         email: this.state.email,
                         img: this.state.image
                     })
-                await json(`/api/github/${User.userid}`,
+                await json(`/api/github/${this.state.githubid}`,
                     'PUT',
                     {
                         github_link: this.state.github
                     })
-                this.props.history.push('/EditProfile');
+                // this.props.history.push('/EditProfile');
             } else {
                 this.setState({ alert: true })
             }
@@ -96,16 +102,16 @@ export default class EditProfile extends React.Component<any, IEditState> {
         return (
             <main className="py-5" style={{ marginLeft: "200px" }}>
                 <div className="container py-5">
-                    {/* <div className="row">
+                    <div className="row">
                         <div className="col-md-4 offset-md-4">
                             {alert}
                         </div>
-                    </div> */}
-                    <form className="row" onSubmit={this.MakeChanges}>
+                    </div>
+                    <form className="row">
                         <div className="col-md-4 offset-md-4">
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }}>Profile Image Link</input>
+                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
                                 </div>
                             </div>
                             <div className="form-row">
@@ -163,8 +169,10 @@ interface IEditState {
     city: string;
     usstate: string;
     email: string;
+    oldemail: string
     github: string;
     password: string;
     image: string;
     alert: boolean;
+    githubid: string
 }
