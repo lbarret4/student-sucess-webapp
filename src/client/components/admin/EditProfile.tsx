@@ -73,7 +73,9 @@ export default class EditProfile extends React.Component<any, IEditState> {
                     {
                         github_link: this.state.github
                     })
-                // this.props.history.push('/EditProfile');
+                    this.props.history.push('/dashboard');
+                    window.location.reload();
+                ;
             } else {
                 this.setState({ alert: true })
             }
@@ -87,7 +89,7 @@ export default class EditProfile extends React.Component<any, IEditState> {
 
     render() {
         if (this.state.image === '' || !this.state.image) {
-            this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
+            this.setState({ image: "https://i.imgur.com/NFtwwuU.png" })
         } else {
 
         }
@@ -107,7 +109,7 @@ export default class EditProfile extends React.Component<any, IEditState> {
                             {alert}
                         </div>
                     </div>
-                    <form className="row">
+                    <form className="row" onSubmit={this.MakeChanges}>
                         <div className="col-md-4 offset-md-4">
                             <div className="form-row">
                                 <div className="col form-group">
