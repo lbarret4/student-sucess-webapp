@@ -14,7 +14,7 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                 lastname: '',
                 dob: '',
                 city: '',
-                usstate: '',
+                state: '',
                 email: '',
                 password: '',
             },
@@ -50,12 +50,13 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                     'POST',
                     this.state.user
                 );
-                SetAccessToken(token);
+                SetAccessToken(token.token, token.user);
                 await json(`/api/github/`, 'POST', {
-                    userid: token.userid,
+                    userid: token.user.userid,
                     github_link: this.state.github
                 })
                 this.props.history.push('/dashboard');
+                window.location.reload();
             } catch (e) {
                 console.log(e);
             } finally {
@@ -101,7 +102,6 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                                     }} required />
                                 </div>
                             </div>
-                            {console.log(this.state.user.firstname)}
                             <div className="form-row">
                                 <div className="col form-group">
                                     <input type="text" className="form-control" placeholder="Last Name" onChange={(e) => {
@@ -151,10 +151,10 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                                 <div className="col form-group">
                                     <input type="text" className="form-control" placeholder="State ID (AL, TX, TN, ...)" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
-                                            delete other.usstate;
+                                            delete other.state;
                                         this.setState({
                                             user: {
-                                                usstate: e.target.value,
+                                                state: e.target.value,
                                               ...other
                                             }                                
                                             
@@ -217,7 +217,7 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
 
 interface IRegisterProps extends RouteComponentProps { }
 interface IRegisterState {
-    user: { firstname: string, lastname: string, dob: string, city: string, usstate: string, email: string, password: string }
+    user: { firstname: string, lastname: string, dob: string, city: string, state: string, email: string, password: string }
     github: string;
     today: number;
     tooYoung: boolean
