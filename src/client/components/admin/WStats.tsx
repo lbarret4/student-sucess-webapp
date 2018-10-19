@@ -1,7 +1,73 @@
 import * as React from 'react';
-import json from '../../utils/api';
+import json, { User } from '../../utils/api';
+import { Queries } from '../../../server/db';
+import { Route, RouteComponentProps } from 'react-router';
+import * as moment from 'moment';
 
-export default class DStats extends React.Component<any, any> {
+
+// interface FormValues {
+//     commits: string,
+//     posts: string,
+//     jobsapps: string,
+//     netacitivites: string,
+//     mockinterviews: string,
+//     interviews: string
+// }
+
+interface IWStatsState {
+    data: any;
+    End: any;
+    Start: any;
+    commits: any;
+    jobsapps: any;
+    mockinterviews: any;
+}
+
+interface IWStatsProps {
+
+}
+
+export default class WStats extends React.Component<IWStatsProps, IWStatsState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            data: [],
+            commits: '',
+            Start: moment(),
+            End: moment().add(1, 'w').format('YYYY-MM-DD'),
+            // posts: '',
+            jobsapps: '',
+            // netacitivites: '',
+            mockinterviews: '',
+            // interviews: ''
+        }
+    };
+
+    async componentWillMount() {
+        try {
+
+            let weeklyStats = [];
+
+            let data = await Promise.all(
+                [json(`/api/q/commitnumber/${User.userid}`),
+                json(`/api/q/interviewresults/${User.userid}`),
+                /*json(`/api/q/numberintweek/${User.userid}/Start/End`),*/
+                json(`/api/q/numberjobapps/${User.userid}`),
+                json(`/api/q/numbermockint/${User.userid}`),
+                json(`api/q/numbernetact/${User.userid}`)
+                ])
+            for (let i of data) {
+                for(let obj of i ) {
+                    weeklyStats.push(obj);
+                }
+            }
+            console.log(weeklyStats);
+             this.setState({ data: weeklyStats, commits: weeklyStats[0].number_commits, jobsapps: weeklyStats[4].count, mockinterviews: weeklyStats[5], });
+        } catch (e) {
+            throw (e);
+        }
+    }
+
 
     render() {
         return (
@@ -25,12 +91,12 @@ export default class DStats extends React.Component<any, any> {
 
                     <div className="card mb-3" style={{ maxWidth: "22rem" }}>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">38</li>
-                            <li className="list-group-item">17</li>
-                            <li className="list-group-item">3</li>
-                            <li className="list-group-item">1</li>
-                            <li className="list-group-item">2</li>
-                            <li className="list-group-item">63,425</li>
+                            <li className="list-group-item">{this.state.commits}</li>
+                            {/* <li className="list-group-item">{this.state.data.posts}</li> */}
+                            <li className="list-group-item">{this.state.jobsapps}</li>
+                            {/* <li className="list-group-item">{this.state.data.netacitivites}</li> */}
+                            <li className="list-group-item">{this.state.mockinterviews}</li> 
+                            {/* <li className="list-group-item">{this.state.interviews}</li> */}
                         </ul>
                     </div>
 
