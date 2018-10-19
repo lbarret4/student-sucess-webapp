@@ -4,9 +4,8 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import { isLoggedIn } from '../../utils/api';
 
 import Alert, { MessageTypes } from '../shared/Alert';
-import { isError } from 'util';
 
-export default class Navbar extends React.Component<any, IRegisterState> {
+export default class EditProfile extends React.Component<any, IEditState> {
 
     constructor(props: any) {
         super(props);
@@ -19,71 +18,94 @@ export default class Navbar extends React.Component<any, IRegisterState> {
             email: '',
             github: '',
             password: '',
-            today: 0,
-            tooYoung: false,
+            alert: false,
             image: '',
         };
     }
 
     componentWillMount() {
         json(`/api/users/${User.userid}`)
-        .then( user => this.setState({
-            firstname: user.firstname,
-            lastname: user.lastname,
-            dob: user.dob,
-            city: user.city,
-            usstate: user.state,
-            email: user.email,
-            github: user.github,
-            image: user.image
-        }));
-        
+            .then(user => this.setState({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                dob: user.dob,
+                city: user.city,
+                usstate: user.state,
+                email: user.email,
+                image: user.img
+            }));
+        json(`/api/github/${User.userid}`)
+            .then(github => this.setState({
+                github: github.github_link
+            }))
+
     }
 
     MakeChanges = async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
 
-            try {
-                let result = await json('/auth/login', 'POST', 
-                {   
-                    password: this.state.password 
+        try {
+            let result = await json('/auth/login', 'POST',
+                {
+                    password: this.state.password
                 });
-            } catch (e) {
-                console.log(e);
-                this.setState({ tooYoung: true })
+            if (result) {
+                await json(`/api/users/${User.userid}`,
+                    'PUT',
+                    {
+                        firstname: this.state.firstname,
+                        lastname: this.state.lastname,
+                        dob: this.state.dob,
+                        city: this.state.city,
+                        state: this.state.usstate,
+                        email: this.state.email,
+                        img: this.state.image
+                    })
+                await json(`/api/github/${User.userid}`,
+                    'PUT',
+                    {
+                        github_link: this.state.github
+                    })
+                this.props.history.push('/EditProfile');
+            } else {
+                this.setState({ alert: true })
             }
+        } catch (e) {
+            console.log(e);
+            this.setState({ alert: true })
         }
+    }
 
 
-    
+
     render() {
-        if (this.state.image == '') {
+        if (this.state.image === '' || !this.state.image) {
             this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
         } else {
-            
+
         }
 
         let alert;
-        if (this.state.tooYoung) {
+        if (this.state.alert) {
             alert = <Alert message="The passwords do not match. Please try again." messageType={MessageTypes.Error}></Alert>;
         } else {
             alert = null;
         }
 
         return (
-            <main className="py-5" style={{marginLeft: "200px"}}>
+            <main className="py-5" style={{ marginLeft: "200px" }}>
                 <div className="container py-5">
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-md-4 offset-md-4">
                             {alert}
                         </div>
-                    </div>
+                    </div> */}
                     <form className="row" onSubmit={this.MakeChanges}>
                         <div className="col-md-4 offset-md-4">
-                        <div className="form-row">
+                            <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
+                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }}>Profile Image Link</input>
                                 </div>
                             </div>
                             <div className="form-row">
@@ -118,7 +140,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="password" className="form-control" placeholder="Enter Password" onChange={(e) => { this.setState({ password: e.target.value }) }} required />
+                                    <input type="password" className="form-control" placeholder="Confirm Password" onChange={(e) => { this.setState({ password: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row form-group">
@@ -134,7 +156,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
     }
 }
 
-interface IRegisterState {
+interface IEditState {
     firstname: string;
     lastname: string;
     dob: string;
@@ -143,7 +165,6 @@ interface IRegisterState {
     email: string;
     github: string;
     password: string;
-    today: number;
-    tooYoung: boolean;
     image: string;
+    alert: boolean;
 }
