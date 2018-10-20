@@ -89,7 +89,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                         <div className="col-md-4 offset-md-4">
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="First Name" onChange={(e) => {
+                                <label htmlFor="First">First Name</label>
+                                    <input id="First" type="text" className="form-control" placeholder="John" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.firstname;
                                         this.setState({
@@ -104,7 +105,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="Last Name" onChange={(e) => {
+                                <label htmlFor="Last">Last Name</label>
+                                    <input id="Last" type="text" className="form-control" placeholder="Doe" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.lastname;
                                         this.setState({
@@ -119,7 +121,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="Date of Birth (mm/dd/yyyy)" onChange={(e) => {
+                                <label htmlFor="DoB">Date of Birth</label>
+                                    <input id="DoB" type="text" className="form-control" placeholder="MM/DD/YYYY" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.dob;
                                         this.setState({
@@ -134,7 +137,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="City" onChange={(e) => {
+                                <label htmlFor="City">City</label>
+                                    <input id="City" type="text" className="form-control" placeholder="Montgomery" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.city;
                                         this.setState({
@@ -149,7 +153,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="State ID (AL, TX, TN, ...)" onChange={(e) => {
+                                <label htmlFor="State">State ID</label>
+                                    <input id="State" type="text" className="form-control" placeholder="AL" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.state;
                                         this.setState({
@@ -164,12 +169,14 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="GitHub Username" onChange={(e) => { this.setState({ github: e.target.value }) }} required />
+                                <label htmlFor="github">GitHub User Name</label>
+                                    <input id="github" type="text" className="form-control" placeholder="GitHub User Name" onChange={(e) => { this.setState({ github: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" placeholder="Email" onChange={(e) => {
+                                <label htmlFor="email">Email Adress</label>
+                                    <input id="email" type="text" className="form-control" placeholder="test@test.com" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.email;
                                         this.setState({
@@ -184,7 +191,8 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="password" className="form-control" placeholder="Password" onChange={(e) => {
+                                <label htmlFor="password">Password</label>
+                                    <input id="password" type="password" className="form-control" placeholder="Password" onChange={(e) => {
                                             let other = JSON.parse(JSON.stringify(this.state.user));
                                             delete other.password;
                                         this.setState({

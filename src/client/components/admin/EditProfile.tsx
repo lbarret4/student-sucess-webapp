@@ -37,7 +37,7 @@ export default class EditProfile extends React.Component<any, IEditState> {
                 oldemail: user.email,
                 image: user.img
             }));
-        json(`/api/github/find`, 'POST', {userid: User.userid})
+        json(`/api/github/find`, 'POST', { userid: User.userid })
             .then(github => this.setState({
                 github: github[0].github_link,
                 githubid: github[0].id
@@ -55,7 +55,7 @@ export default class EditProfile extends React.Component<any, IEditState> {
                     email: this.state.oldemail,
                     password: this.state.password
                 });
-                console.log(await result);
+            console.log(await result);
             if (result) {
                 await json(`/api/users/${User.userid}`,
                     'PUT',
@@ -73,8 +73,8 @@ export default class EditProfile extends React.Component<any, IEditState> {
                     {
                         github_link: this.state.github
                     })
-                    this.props.history.push('/dashboard');
-                    window.location.reload();
+                this.props.history.push('/dashboard');
+                window.location.reload();
                 ;
             } else {
                 this.setState({ alert: true })
@@ -113,42 +113,51 @@ export default class EditProfile extends React.Component<any, IEditState> {
                         <div className="col-md-4 offset-md-4">
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
+                                    <label htmlFor="Picture">Profile Picture Link</label>
+                                        <input id="Picture" type="text" className="form-control" value={this.state.image} placeholder="Link to desired profile picture" onChange={(e) => { this.setState({ image: e.target.value }) }} />
+                                    
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.firstname} placeholder="First Name" onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
+                                <label htmlFor="First">First Name</label>
+                                    <input id="First" type="text" className="form-control" value={this.state.firstname} placeholder="First Name" onChange={(e) => { this.setState({ firstname: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.lastname} placeholder="Last Name" onChange={(e) => { this.setState({ lastname: e.target.value }) }} required />
+                                <label htmlFor="Last">Last Name</label>
+                                    <input id="Last" type="text" className="form-control" value={this.state.lastname} placeholder="Last Name" onChange={(e) => { this.setState({ lastname: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.city} placeholder="City" onChange={(e) => { this.setState({ city: e.target.value }) }} required />
+                                <label htmlFor="City">City</label>
+                                    <input id="City" type="text" className="form-control" value={this.state.city} placeholder="City" onChange={(e) => { this.setState({ city: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.usstate} placeholder="State" onChange={(e) => { this.setState({ usstate: e.target.value }) }} required />
+                                <label htmlFor="State">State</label>
+                                    <input id="State" type="text" className="form-control" value={this.state.usstate} placeholder="State" onChange={(e) => { this.setState({ usstate: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.github} placeholder="GitHub User Name" onChange={(e) => { this.setState({ github: e.target.value }) }} required />
+                                <label htmlFor="GitHub">GitHub User Name</label>
+                                    <input id="GitHub" type="text" className="form-control" value={this.state.github} placeholder="GitHub User Name" onChange={(e) => { this.setState({ github: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="text" className="form-control" value={this.state.email} placeholder="Email Adress" onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                                <label htmlFor="EMail">E-Mail</label>
+                                    <input id="EMail" type="text" className="form-control" value={this.state.email} placeholder="Email Adress" onChange={(e) => { this.setState({ email: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input type="password" className="form-control" placeholder="Confirm Password" onChange={(e) => { this.setState({ password: e.target.value }) }} required />
+                                <label htmlFor="Password">Password</label>
+                                    <input id="Password" type="password" className="form-control" placeholder="Confirm Password" onChange={(e) => { this.setState({ password: e.target.value }) }} required />
                                 </div>
                             </div>
                             <div className="form-row form-group">
