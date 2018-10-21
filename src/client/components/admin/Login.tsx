@@ -36,8 +36,10 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role});
                 if(result.role === 'admin') {
                     this.props.history.push('/admin');
+                    window.location.reload();
                 } else {
                     this.props.history.push('/dashboard');
+                    window.location.reload();
                 }
             } else {
                 this.setState({ loginFailed: true });
