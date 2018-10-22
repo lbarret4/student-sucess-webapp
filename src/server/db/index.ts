@@ -8,6 +8,7 @@ import GetNumNetworkAct from './queries/GetNumNetworkAct';
 import GetNumMockInt from './queries/GetNumMockInt';
 import GetNumJobApp from './queries/GetNumJobApp';
 import GetNumIntWeek from './queries/GetNumIntWeek';
+import GetWeeklySummary from './queries/GetWeeklySummary';
 
 export const Queries = {
     GetCommitNum,
@@ -16,6 +17,7 @@ export const Queries = {
     GetNumMockInt,
     GetNumJobApp,
     GetNumIntWeek,
+    GetWeeklySummary
 };
 
 export const Blogs = new Table<IBlog>(pool, 'blogs', {
