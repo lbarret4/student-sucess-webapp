@@ -15,10 +15,12 @@ router.post('/', async (req, res, next) => {
         let token = await CreateToken({ userid: result.id });
         res.json({
             token,
-            role: 'guest',
-            userid: result.id
+            user: {
+                role: 'guest',
+                userid: result.id
+            }
         });
-    } catch(e) {
+    } catch (e) {
         console.log(e);
         res.sendStatus(500);
     }

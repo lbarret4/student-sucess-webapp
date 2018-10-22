@@ -36,8 +36,10 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 SetAccessToken(result.token, { userid: result.userid, role: result.role});
                 if(result.role === 'admin') {
                     this.props.history.push('/admin');
+                    window.location.reload();
                 } else {
                     this.props.history.push('/dashboard');
+                    window.location.reload();
                 }
             } else {
                 this.setState({ loginFailed: true });
@@ -70,12 +72,14 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                         <form className="col-md-4 offset-md-4" onSubmit={ this.Login }>
                             <div className="form-row">
                                 <div className="col form-group">
-                                    <input className="form-control" type="text" placeholder="Email" onChange={ (e) => { this.setState({email: e.target.value } )} } required />
+                                <label htmlFor="email">Email</label>
+                                    <input id="email" className="form-control" type="text" placeholder="Email" onChange={ (e) => { this.setState({email: e.target.value } )} } required />
                                 </div>
                             </div>
                             <div className="form-row">
                                 <div className="col form-group">
-                                <input className="form-control" type="password" placeholder="Password" onChange={ (e) => { this.setState({password: e.target.value } )} } required />
+                                <label htmlFor="password">Password</label>
+                                <input id="password" className="form-control" type="password" placeholder="Password" onChange={ (e) => { this.setState({password: e.target.value } )} } required />
                                 </div>
                             </div>
                             <div className="form-row form-group">

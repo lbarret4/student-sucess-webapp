@@ -13,27 +13,26 @@ export default class Navbar extends React.Component<any, IRegisterState> {
             dob: '',
             city: '',
             usstate: '',
-            email: '',
             github: '',
-            password: '',
-            today: 0,
-            tooYoung: false,
             image: '',
         };
     }
 
     componentWillMount() {
         json(`/api/users/${User.userid}`)
-        .then( user => this.setState({
-            firstname: user.firstname,
-            lastname: user.lastname,
-            dob: user.dob,
-            city: user.city,
-            usstate: user.state,
-            github: user.github,
-            image: user.image
-        }));
-        
+            .then(user => this.setState({
+                firstname: user.firstname,
+                lastname: user.lastname,
+                dob: user.dob,
+                city: user.city,
+                usstate: user.state,
+                image: user.img
+            }));
+        json(`/api/github/find`, 'POST', {userid: User.userid})
+            .then(github => this.setState({
+                github: github[0].github_link,
+            }))
+
     }
 
 
@@ -42,7 +41,7 @@ export default class Navbar extends React.Component<any, IRegisterState> {
         if (this.state.image) {
 
         } else {
-            this.setState({ image: "https://i.kym-cdn.com/photos/images/original/000/828/088/9a6.php" })
+            this.setState({ image: "https://i.imgur.com/NFtwwuU.png" })
         }
 
         if (isLoggedIn()) {
@@ -54,14 +53,13 @@ export default class Navbar extends React.Component<any, IRegisterState> {
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>Birthday: {this.state.dob}</div>
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>{this.state.city}, {this.state.usstate}</div>
                         <div style={{ marginLeft: "auto", marginRight: "auto" }}>{this.state.firstname}'s GitHub: {}
-                            <a href={`https://github.com/${this.state.github}`} style={{ color: "white" }}>Link</a>
+                            <a target="_blank" href={`https://github.com/${this.state.github}`} style={{ color: "white" }}>Link</a>
                         </div>
                         <Link to="/EditProfile" id="Edit" className="btn btn-dark border-dark" style={{ marginLeft: "auto", marginRight: "auto", color: "white" }} href="#">Edit Profile</Link>
                     </div>
                     <div className="container py-5">
 
                     </div>
-                    {/* {console.log(User)} */}
                 </main>
             );
         } else {
@@ -72,15 +70,11 @@ export default class Navbar extends React.Component<any, IRegisterState> {
 }
 
 interface IRegisterState {
-    firstname: string;
-    lastname: string;
-    dob: string;
-    city: string;
-    usstate: string;
-    email: string;
-    github: string;
-    password: string;
-    today: number;
-    tooYoung: boolean;
-    image: string;
+    firstname: string,
+    lastname: string,
+    dob: string,
+    city: string,
+    usstate: string,
+    github: string,
+    image: string,
 }
