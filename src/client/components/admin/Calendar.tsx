@@ -24,7 +24,7 @@ class MyCalendar extends React.Component<any, IMyCalendarState>{
   state = {
     events: [
       {
-        title: "Catalyst Start Date",
+        title: "Fall Catalyst Start Date",
         start: new Date(2018, 7, 20, 9, 0),
         end: new Date(moment([2018, 7, 20, 9, 0]).add(8, "h").format('LLLL'))
       }
