@@ -1,6 +1,6 @@
 import pool from '../pool';
 
-export default (userid?: any) => { 
+export default (userid: any, start: any, end: any) => { 
     return new Promise<IQueryGetInterviewResults>((resolve, reject) => {
         pool.query(`
         SELECT
@@ -11,7 +11,7 @@ export default (userid?: any) => {
             users u on i.userid = u.id
         WHERE 
             i.userid = ?`,
-            userid, 
+            [userid, start, end], 
             (err, results) => {
             if(err) {
                 reject(err);

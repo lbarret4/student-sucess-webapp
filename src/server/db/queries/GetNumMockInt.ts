@@ -1,10 +1,10 @@
 import pool from '../pool';
 
-export default (userid?: any) => {
+export default (userid: any, start: any, end: any) => {
     return new Promise<IGetNumMockInt>((resolve, reject) => {
         pool.query(`
         Select
-            cs.service_type
+            count(cs.service_type)
         From
 	        career_services cs
         join
@@ -13,7 +13,7 @@ export default (userid?: any) => {
             cs.service_type = 4
         and 
             u.id = ?
-            `, userid, 
+            `, [userid, start, end], 
             (err, results) => {
                 if (err) {
                     reject(err)
@@ -26,4 +26,6 @@ export default (userid?: any) => {
 
 export interface IGetNumMockInt {
     service_type?: number;
+    start?: any;
+    end?: any;
 };

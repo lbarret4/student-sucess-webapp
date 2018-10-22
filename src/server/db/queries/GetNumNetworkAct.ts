@@ -1,17 +1,20 @@
 import pool from '../pool';
 
-export default (userid?: any) => {
+export default (userid: any, start: any, end: any) => {
     return new Promise<IGetNumNetworkAct>((resolve, reject) => {
         pool.query(`
         Select
-            n.net_activities, n.contact, n.company_name
+            count(n.user) as activitycount
         From 
             networking n
         join 
             users u on n.user = u.id
         Where
-            u.id = ? `,
-            userid,
+            u.id = ?
+        Between
+            ? and ? 
+        `
+            ,[userid, start, end],
             (err, results) => {
                 if(err) {
                     reject(err)
@@ -23,7 +26,5 @@ export default (userid?: any) => {
 }
 
 export interface IGetNumNetworkAct {
-    net_activites?: string;
-    contat?: string;
-    company_name?: string;
+    user?: any;
 };

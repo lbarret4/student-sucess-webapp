@@ -21,6 +21,8 @@ interface IWStatsState {
     commits: any;
     jobsapps: any;
     mockinterviews: any;
+    interviews: any;
+    netactivites: any;
 }
 
 interface IWStatsProps {
@@ -37,9 +39,9 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
             End: moment().add(1, 'w').format('YYYY-MM-DD'),
             // posts: '',
             jobsapps: '',
-            // netacitivites: '',
+            netactivites: '',
             mockinterviews: '',
-            // interviews: ''
+            interviews: ''
         }
     };
 
@@ -47,22 +49,24 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
         try {
 
             let weeklyStats = [];
+            let Start = this.state.Start;
+            let End = this.state.End;
 
             let data = await Promise.all(
-                [json(`/api/q/commitnumber/${User.userid}`),
-                json(`/api/q/interviewresults/${User.userid}`),
-                /*json(`/api/q/numberintweek/${User.userid}/Start/End`),*/
-                json(`/api/q/numberjobapps/${User.userid}`),
-                json(`/api/q/numbermockint/${User.userid}`),
-                json(`api/q/numbernetact/${User.userid}`)
+                [json(`/api/q/commitnumber/${User.userid}/${Start}/${End}`),
+                json(`/api/q/numberintweek/${User.userid}/${Start}/${End}`),
+                json(`/api/q/numberjobapps/${User.userid}/${Start}/${End}`),
+                json(`/api/q/numbermockint/${User.userid}/${Start}/${End}`),
+                json(`/api/q/numbernetact/${User.userid}/${Start}/${End}`)
                 ])
+                
             for (let i of data) {
                 for(let obj of i ) {
                     weeklyStats.push(obj);
                 }
             }
             console.log(weeklyStats);
-             this.setState({ data: weeklyStats, commits: weeklyStats[0].number_commits, jobsapps: weeklyStats[4].count, mockinterviews: weeklyStats[5], });
+             this.setState({ data: weeklyStats, commits: weeklyStats[0].number_commits, jobsapps: weeklyStats[2].userid, netactivites: weeklyStats[4].user, mockinterviews: weeklyStats[3].service_type, interviews: weeklyStats[1]});
         } catch (e) {
             throw (e);
         }
@@ -91,12 +95,12 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
 
                     <div className="card mb-3" style={{ maxWidth: "22rem" }}>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">{this.state.commits}</li>
+                            <li className="list-group-item">{this.state.commits}</li>   
                             {/* <li className="list-group-item">{this.state.data.posts}</li> */}
                             <li className="list-group-item">{this.state.jobsapps}</li>
-                            {/* <li className="list-group-item">{this.state.data.netacitivites}</li> */}
+                            <li className="list-group-item">{this.state.netactivites}</li>
                             <li className="list-group-item">{this.state.mockinterviews}</li> 
-                            {/* <li className="list-group-item">{this.state.interviews}</li> */}
+                            <li className="list-group-item">{this.state.interviews}</li>
                         </ul>
                     </div>
 
