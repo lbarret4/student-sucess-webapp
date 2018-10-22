@@ -27,7 +27,7 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, IC
         super(props);
         this.state = {
             initialValues: {
-                date: moment(),
+                date: moment().format('YYYY-MM-DDTHH:mm'),
                 service: 'choose'
             },
             services: []
@@ -39,7 +39,6 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, IC
         let services: any = await data.map((service: any) => {
             return service.service_type;
         });
-        console.log(services)
         this.setState({ services })
     }
 
@@ -61,19 +60,18 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, IC
                 <Formik
                     initialValues={initialValues}
                     onSubmit={(values: FormValues, { resetForm, setSubmitting }) => {
-                        let date = JSON.parse(JSON.stringify(values.date)).slice(0,-1);                        
-                        let data=
+                        let data =
                         {
                             userid: User.userid,
                             service_type: values.service,
-                            _created: date
+                            _created: values.date
                         }
-                        let results = json('/api/careerservices','POST',data);
-                            alert(JSON.stringify(data, null, 2));
-                            setSubmitting(false);
-                            resetForm();
+                        let results = json('/api/careerservices', 'POST', data);
+                        alert(JSON.stringify(data, null, 2));
+                        setSubmitting(false);
+                        resetForm();
 
-                        }}
+                    }}
                     validationSchema={Yup.object().shape({
                         date: Yup.date().typeError('Please enter a valid date and time'),
                         service: Yup.string().test('match', 'Please select a career service', value => value !== 'choose')
@@ -108,8 +106,8 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, IC
                                             input={true}
                                             open={true}
                                             inputProps={{ name: 'date' }}
-                                            defaultValue={values.date}
-                                            onChange={value => setFieldValue('date', value)}
+                                            defaultValue={moment(values.date)}
+                                            onChange={value => setFieldValue('date', moment(value).format('YYYY-MM-DDTHH:mm'))}
                                         />
                                     </ div>
                                     <div className="form-group col-md-4">

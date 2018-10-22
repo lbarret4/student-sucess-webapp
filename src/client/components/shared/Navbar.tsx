@@ -40,7 +40,7 @@ export default class Navbar extends React.Component<any, INavState> {
                 <div className="collapse navbar-collapse" id="navbarText">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item active">
-                            {isLoggedIn() ? <Link to="/forms" className="nav-link" href="#">Schedual Events <span className="sr-only">(current)</span></Link> : <div></div>}
+                            {isLoggedIn() ? <Link to="/forms" className="nav-link" href="#">Schedule Events <span className="sr-only">(current)</span></Link> : <div></div>}
                         </li>
                         <li className="nav-item active">
                             {isLoggedIn() ? <Link to="/calender" className="nav-link" href="#">My Calender <span className="sr-only">(current)</span></Link> : <div></div>}

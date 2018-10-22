@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import * as DateTime from "react-datetime";
 import { DisplayFormikState } from '../NetworkForms';
 import * as moment from 'moment';
+import json, { User } from '../../../../utils/api';
+
 
 interface FormValues {
     date: DateTime.DatetimepickerProps["value"];
@@ -13,22 +15,49 @@ interface FormValues {
 
 }
 
-export class ApplicationForms extends React.Component<RouteComponentProps, any>{
+interface IApplicationFormsState {
+    initialValues: FormValues;
+    companies: { id: number, name: string }[];
+
+}
+
+export class ApplicationForms extends React.Component<RouteComponentProps, IApplicationFormsState>{
     constructor(props: any) {
         super(props);
+        this.state = {
+            initialValues: {
+                date: moment().format('YYYY-MM-DDTHH:mm'),
+                company: 'choose',
+            },
+            companies: []
+        }
     }
+
+    async componentDidMount() {
+        try {
+            let data = await json('/api/employerinfo');
+            let companies: any = await data.map((company: any) => {
+                return {
+                    id: company.id,
+                    name: company.company_name
+                };
+            });
+            this.setState({ companies });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     render() {
 
-        const initialValues: FormValues = {
-            date: moment(),
-            company: 'choose',
-        };
-        let companies = ['Choose a Company', 'Company A', 'Company B', 'Company C', 'Company D', 'Company E', 'Company F', 'Not Listed'];
-        let options = companies.map((company, index) => {
-            let name = index === 0 && index !== companies.length - 1 ? initialValues.company : `company${index}`;
-            name = index === companies.length - 1 ? 'NA' : name;
+        const initialValues = this.state.initialValues;
+        const companies = this.state.companies;
+        let options = [{ id: 0, name: 'Choose a Company' }, ...companies, { id: companies.length, name: 'Not Listed' }].map((company, index) => {
+            let name = index === 0 && index !== companies.length - 1 ? initialValues.company : `${company.id}`;
+            name = index === companies.length+1 ? 'NA' : name;
             return (
-                <option value={name} key={index}>{company}</option>
+                <option value={name} key={index}>{company.name}</option>
 
             );
         });
@@ -38,19 +67,36 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
                 <h5 className="card-title">Fill in info for submitted job application </h5>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={(values: FormValues, { resetForm, setSubmitting }) =>
-                    setTimeout(() => {                                         
-                        alert(JSON.stringify(values, null, 2));                        
-                        setSubmitting(false);            
-                        if(values.company === 'NA'){
-                            this.props.history.push(`${this.props.match.path}/EmployerInfo/1`)
-                        }else{
-                            resetForm();
-                        }                      
-                    }, 2000)}
+                    onSubmit={async (values: FormValues, { resetForm, setSubmitting }) => {
+
+                        try {
+
+                            let data =
+                            {
+                                userid: User.userid,
+                                company_info: values.company,
+                                date_submitted: values.date
+                            }
+                            if (values.company === 'NA') {
+                                delete data.company_info;
+                                let results = await json('/api/applications', 'POST', data);
+                                this.props.history.push(`${this.props.match.path}/EmployerInfo/${results.id}`);
+                            } else {
+                                let results = await json('/api/applications', 'POST', data);
+                                resetForm();
+                            }
+                            alert(JSON.stringify(data, null, 2));
+                            setSubmitting(false);
+                        } catch (error) {
+                            console.log(error);
+                        }
+
+
+
+                    }}
                     validationSchema={Yup.object().shape({
-                        date:Yup.date().typeError('Please enter a valid date and time'),
-                        company:Yup.string().test('match','Please select a company name or NA to add one',value =>value !== 'choose')
+                        date: Yup.date().typeError('Please enter a valid date and time'),
+                        company: Yup.string().test('match', 'Please select a company name or Not Listed to add one', value => value !== 'choose')
                     })}
                 >
                     {(props: FormikProps<FormikValues>) => {
@@ -81,8 +127,8 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
                                         <DateTime
                                             input={true}
                                             inputProps={{ name: 'date' }}
-                                            defaultValue={values.date}
-                                            onChange={value => setFieldValue('date', value)}
+                                            defaultValue={moment(values.date)}
+                                            onChange={value => setFieldValue('date', moment(value).format('YYYY-MM-DDTHH:mm'))}
                                         />
                                     </ div>
                                     <div className="form-group col-md-4">
@@ -100,7 +146,7 @@ export class ApplicationForms extends React.Component<RouteComponentProps, any>{
                                             className="btn btn-primary btn-lg btn-block"
                                             disabled={isSubmitting}
                                         >
-                                            {values.company !== 'NA'? 'Submit':'Next: Employer Info'}
+                                            {values.company !== 'NA' ? 'Submit' : 'Next: Employer Info'}
                                         </button>
                                     </div>
                                 </div>
