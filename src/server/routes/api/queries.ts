@@ -59,4 +59,13 @@ router.get('/numbernetact/:id/:start/:end', async (req, res, next) => {
     }
 });
 
+router.get('/numbercommitwk/:id/:start/:end', async (req, res, next) => {
+    try {
+        res.json(await Queries.GetNumCommitWeek(req.params.id, req.params.start, req.params.end));
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
 export default router;
