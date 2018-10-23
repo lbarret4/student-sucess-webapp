@@ -13,9 +13,9 @@ router.get('/commitnumber/:id/:start/:end', async (req, res, next) => {
     }
 });
 
-router.get('/interviewresults/:id/:start/:end', async (req, res, next) => {
+router.get('/interviewresults/:id/', async (req, res, next) => {
     try {
-        res.json(await Queries.GetInterviewResults(req.params.id, req.params.start, req.params.end));
+        res.json(await Queries.GetInterviewResults(req.params.id));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
