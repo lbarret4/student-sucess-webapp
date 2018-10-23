@@ -15,6 +15,7 @@ import NetworkingRouter from './networking';
 import ProgramRouter from './program';
 import ServicesRouter from './services';
 import UserActivitiesRouter from './userActivities';
+import GithubRepoRouter from './repo';
 
 const router = express.Router();
 
@@ -37,6 +38,7 @@ router.use('/applications', ApplicationsRouter);
 router.use('/commits', CommitsRouter);
 router.use('/employerinfo', EmployerInfoRouter);
 router.use('/github', GithubRouter);
+router.use('/repo',GithubRepoRouter);
 router.use('/jobactivities', JobActivitiesRouter);
 router.use('/networking', NetworkingRouter);
 router.use('/program', ProgramRouter);

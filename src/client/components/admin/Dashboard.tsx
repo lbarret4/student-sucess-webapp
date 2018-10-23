@@ -1,9 +1,6 @@
 
 import * as React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import json from '../../utils/api';
-
-import BlogListItem from '../shared/BlogListItem';
+import json, { User } from '../../utils/api';
 import DTasks from './DTasks'
 import WTasks from './WTasks'
 import DStats from './DStats'
@@ -21,10 +18,8 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
     }
 
     async componentWillMount() {
-        // let blogs = await json('/api/q/blogsauthors');
-        //
-        // // fetches the quote of the day
-        // //
+        await this.getCommits();            
+        // fetches the quote of the day
             try {
                 let res = await fetch(`http://quotes.rest/qod`, { headers: { 'Accept': "application/json" } });
                 let someCrap = await res.json();
@@ -34,12 +29,14 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
                 });
             } catch (error) {
                 console.log(error);
-            }
-        
+            }       
+    }
 
-        // // this.setState({
-        //     blogs,
-        // });
+    async getCommits(){
+        let results = await json(`/api/github/find/`,'POST',{userid:User.userid});
+        let [id,username] = await Promise.all([results[0]["id"],results[0]["github_link"]]);
+        let  {numCommits,lastCommitHash} = await json(`/api/repo/${'mstringer88' }`);
+        let data = await json(`/api/commits/`,'POST',{github_id:id,number_commits:numCommits,hash:lastCommitHash.substring(0,6)});      
     }
 
     render() {

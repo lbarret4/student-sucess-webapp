@@ -1,17 +1,17 @@
 import pool from '../pool';
 
-export default (userid: any, start: any, end: any) => { 
+export default (userid: any) => { 
     return new Promise<IQueryGetCommitNum>((resolve, reject) => {
         pool.query(`
         SELECT
-            c.number_commits, c.hash
+            c.number_commits, c.hash,c._created
         FROM 
             Commits c 
         join 
             github g on g.id = c.github_id
         WHERE 
             g.userid = ?`
-        , [userid, start, end], 
+        , userid, 
             (err, results) => {
             if(err) {
                 reject(err);
