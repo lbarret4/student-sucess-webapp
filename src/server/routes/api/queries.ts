@@ -3,10 +3,10 @@ import { Queries } from '../../db';
 
 const router = express.Router();
 
-router.get('/commitnumber/:id/:start/:end', async (req, res, next) => {
+router.get('/commitnumber/:id/', async (req, res, next) => {
 
     try {
-        res.json(await Queries.GetCommitNum(req.params.id, req.params.start, req.params.end));
+        res.json(await Queries.GetCommitNum(req.params.id,));
     } catch(e) {
         console.log(e);
         res.sendStatus(500);
