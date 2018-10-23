@@ -56,8 +56,8 @@ export class EmployerForm extends React.Component<IEmployerFormProps, FormValues
             "PR - Puerto Rico", "RI - Rhode Island", "SC - South Carolina", "SD - South Dakota", "TN - Tennessee", "TX - Texas", "UT - Utah",
             "VA - Virginia", "VI - Virgin Islands", "VT - Vermont", "WA - Washington", "WI - Wisconsin", "WV - West Virginia", "WY - Wyoming"];
 
-        let options = ['choose', ...STATES].map((state, index) => {
-            let name = index === 0 && index !== STATES.length - 1 ? initialValues.state : `state${index}`;
+        let options = ['choose', ...STATES].map((state, index) => {         
+            let name = index === 0? initialValues.state : index;
             return (
                 <option value={name}>{state}</option>
 
@@ -79,7 +79,7 @@ export class EmployerForm extends React.Component<IEmployerFormProps, FormValues
                                 address: values.street1,
                                 address_2: values.street2,
                                 city: values.city,
-                                state: values.state.slice(0, 2),
+                                state: STATES[+values.state-1].slice(0, 2),
                                 zip: values.zip
                             }
                             let res1 = await json('/api/employerinfo', 'POST', data);
