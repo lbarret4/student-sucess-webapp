@@ -1,7 +1,42 @@
 import * as React from 'react';
-import json from '../../utils/api';
+import json, { User } from '../../utils/api';
+import { Queries } from '../../../server/db';
+import * as moment from 'moment';
 
-export default class DStats extends React.Component<any, any> {
+interface IDStatsState {
+    commits: any;
+    Start: any;
+    End: any;
+}
+
+interface IDStatsProps {
+
+}
+
+export default class DStats extends React.Component<IDStatsProps, IDStatsState> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            commits: '',
+            Start: moment().format('YYYY-MM-DD'),
+            End: moment().subtract(1, 'd').format('YYYY-MM-DD')
+        }
+    }
+
+    async componentWillMount() {
+        try {
+            let Start = this.state.Start;
+            let End = this.state.End;
+            console.log(Start);
+            console.log(End);
+
+            let [dailyStats] = await Promise.all([json(`/api/q/commitnumber/${User.userid}/${Start}/${End}`)]);
+            console.log(dailyStats);
+            this.setState({ commits: dailyStats[0].number_commits});
+        } catch (e) {
+            throw (e);
+        }
+    }
 
     render() {
         return (
@@ -21,7 +56,7 @@ export default class DStats extends React.Component<any, any> {
 
                     <div className="card mb-3" style={{ maxWidth: "22rem" }}>
                         <ul className="list-group list-group-flush">
-                            <li className="list-group-item">5</li>
+                            <li className="list-group-item">{this.state.commits}</li>
                         </ul>
                     </div>
                 </div>

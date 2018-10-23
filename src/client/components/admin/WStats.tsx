@@ -1,21 +1,9 @@
 import * as React from 'react';
 import json, { User } from '../../utils/api';
 import { Queries } from '../../../server/db';
-import { Route, RouteComponentProps } from 'react-router';
 import * as moment from 'moment';
 
-
-// interface FormValues {
-//     commits: string,
-//     posts: string,
-//     jobsapps: string,
-//     netacitivites: string,
-//     mockinterviews: string,
-//     interviews: string
-// }
-
 interface IWStatsState {
-    data: any;
     End: any;
     Start: any;
     commits: any;
@@ -34,7 +22,6 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
     constructor(props: any) {
         super(props);
         this.state = {
-            data: [],
             commits: '',
             Start: /* moment().format('YYYY-MM-DD') */'2018-10-10',
             End: /* moment().add(1, 'w').format('YYYY-MM-DD') */'2018-10-17',
@@ -48,8 +35,6 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
 
     async componentWillMount() {
         try {
-
-            let weeklyStats = [];
             let Start = this.state.Start;
             let End = this.state.End;
             console.log(Start);
