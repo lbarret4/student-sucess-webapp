@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Formik, Form, Field, FormikErrors, FormikActions, FormikProps, FormikValues, ErrorMessage, } from 'formik';
 import Alert, { MessageTypes } from '../../shared/Alert';
 import * as Yup from "yup";
-import { DisplayFormikState } from './NetworkForms';
 import json from '../../../utils/api';
 
 
@@ -276,7 +275,6 @@ export class EmployerForm extends React.Component<IEmployerFormProps, FormValues
                                 </div>
 
 
-                                <DisplayFormikState {...props} />
                             </Form>
                         );
                     }}
