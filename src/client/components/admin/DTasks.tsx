@@ -1,13 +1,12 @@
 
 import * as React from 'react';
-import json from '../../utils/api';
 
 export default class DTasks extends React.Component<any, any> {
 
     render() {
         return (
             <React.Fragment>
-                <div className="card mb-3" style={{ maxWidth: "22rem" }}>
+                <div className="card task mb-3 shadow">
                     <h5 className="card-header">Daily Tasks</h5>
                     <div className="card-body">
                         <div>
