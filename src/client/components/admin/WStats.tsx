@@ -1,6 +1,5 @@
 import * as React from 'react';
 import json, { User } from '../../utils/api';
-import { Queries } from '../../../server/db';
 import * as moment from 'moment';
 
 interface IWStatsState {
@@ -22,14 +21,14 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
     constructor(props: any) {
         super(props);
         this.state = {
-            commits: '',
+            commits: 'loading...',
             Start: /* moment().format('YYYY-MM-DD') */'2018-10-10',
             End: /* moment().add(1, 'w').format('YYYY-MM-DD') */'2018-10-24',
-            posts: '',
-            jobsapps: '',
-            netactivites: '',
-            mockinterviews: '',
-            interviews: ''
+            posts: 'loading...',
+            jobsapps: 'loading...',
+            netactivites: 'loading...',
+            mockinterviews: 'loading...',
+            interviews: 'loading...'
         }
     };
 
@@ -57,10 +56,10 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
                     json(`/api/q/numbernetact/${id}/${Start}/${End}`),
                     json(`${await linkBlog}`)
                 ]);
-            let WeeklyStats6 = await this.getNumBlogWeekly(blogs, '2018-10-04', '2018-10-22');
+            let WeeklyStats6 = await this.getNumBlogWeekly(blogs, '2018-10-04', '2018-10-22');           
             this.setState(
                 {
-                    commits: WeeklyStats1[0].NumsofCommitsaWk,
+                    commits: WeeklyStats1[0].NumsofCommitsaWk||0,
                     jobsapps: WeeklyStats3[0].count,
                     netactivites: WeeklyStats5[0].activitycount,
                     mockinterviews: WeeklyStats4[0].NumMockInt,
@@ -88,36 +87,35 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
 
     render() {
         return (
-            <React.Fragment>
-                <div className="d-flex justify-content-center">
-                    <h3 className="card-header border-dark" style={{ minWidth: "44rem" }}>Weekly statistics</h3>
-                </div>
 
-                <div className="card-group d-flex justify-content-center">
+            <div className="wStats d-flex justify-content-center">
+                <div className="card mb-3 shadow-lg">
+                    <h3 className="card-header border-dark">Weekly statistics</h3>
+                    <div className="row">
+                        <div className="col-6 pr-0">
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">Commits this week</li>
+                                <li className="list-group-item">Blog posts this week</li>
+                                <li className="list-group-item">Job applications this week</li>
+                                <li className="list-group-item">Networking activities attended this week</li>
+                                <li className="list-group-item">Mock interviews this week</li>
+                                <li className="list-group-item">Interviews this week</li>
+                            </ul>
+                        </div>
 
-                    <div className="card mb-3" style={{ maxWidth: "22rem" }}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">Commits this week</li>
-                            <li className="list-group-item">Blog posts this week</li>
-                            <li className="list-group-item">Job applications this week</li>
-                            <li className="list-group-item">Networking activities attended this week</li>
-                            <li className="list-group-item">Mock interviews this week</li>
-                            <li className="list-group-item">Interviews this week</li>
-                        </ul>
+                        <div className="col-6 pl-0">
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item border-left ">{this.state.commits}</li>
+                                <li className="list-group-item border-left ">{this.state.posts}</li>
+                                <li className="list-group-item border-left ">{this.state.jobsapps}</li>
+                                <li className="list-group-item border-left ">{this.state.netactivites}</li>
+                                <li className="list-group-item border-left ">{this.state.mockinterviews}</li>
+                                <li className="list-group-item border-left ">{this.state.interviews}</li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <div className="card mb-3" style={{ maxWidth: "22rem" }}>
-                        <ul className="list-group list-group-flush">
-                            <li className="list-group-item">{this.state.commits}</li>
-                            <li className="list-group-item">{this.state.posts}</li>
-                            <li className="list-group-item">{this.state.jobsapps}</li>
-                            <li className="list-group-item">{this.state.netactivites}</li>
-                            <li className="list-group-item">{this.state.mockinterviews}</li>
-                            <li className="list-group-item">{this.state.interviews}</li>
-                        </ul>
-                    </div>
-
                 </div>
-            </React.Fragment>)
+            </div>
+        );
     }
 }
