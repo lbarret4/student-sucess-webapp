@@ -1,0 +1,15 @@
+.dStats {
+
+    .card{
+        max-width: 44rem;
+        min-width: 44rem;
+        .col-6.pl-0{
+            ul{
+                min-height: 5.05rem;
+                li{
+                    min-height: inherit;
+                }
+            }
+        }
+    }
+}

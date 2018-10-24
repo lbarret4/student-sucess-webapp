@@ -2,3 +2,7 @@
 @import "./_overrides";
 
 @import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@import "./pages/dstats.scss";
+@import "./pages/wstats.scss";
+@import "./pages/task.scss"
