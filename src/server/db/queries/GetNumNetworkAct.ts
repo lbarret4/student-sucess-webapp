@@ -11,6 +11,8 @@ export default (userid: any, start: any, end: any) => {
             users u on n.user = u.id
         Where
             u.id = ?
+        AND
+            n._created
         Between
             ? and ? 
         `
