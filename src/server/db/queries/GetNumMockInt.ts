@@ -11,8 +11,13 @@ export default (userid: any, start: any, end: any) => {
             users u on u.id = cs.userid
         WHERE
             cs.service_type = 4
-        and 
+        AND 
             u.id = ?
+        AND
+            cs._created
+        BETWEEN
+            ? 
+        AND ?; 
             `, [userid, start, end], 
             (err, results) => {
                 if (err) {
