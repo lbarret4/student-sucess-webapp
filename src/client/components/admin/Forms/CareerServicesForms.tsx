@@ -102,8 +102,7 @@ export class CareerServicesForms extends React.Component<RouteComponentProps, IC
                                             Date Scheduled
                                             </label>
                                         <DateTime
-                                            input={true}
-                                            open={true}
+                                            input={true}                                            
                                             inputProps={{ name: 'date' }}
                                             defaultValue={moment(values.date)}
                                             onChange={value => setFieldValue('date', moment(value).format('YYYY-MM-DDTHH:mm'))}
