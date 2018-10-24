@@ -12,15 +12,15 @@ export default class DTasks extends React.Component<any, any> {
                     <div className="card-body">
                         <div>
                             <input type="checkbox" id="dtask1" />
-                            <label htmlFor="dtask1">{} Class assignments</label>
+                            <label htmlFor="dtask1"> Class assignments</label>
                         </div>
                         <div>
                             <input type="checkbox" id="dtask2" />
-                            <label htmlFor="dtask1">{} Commit to GitHub</label>
+                            <label htmlFor="dtask2"> Commit to GitHub</label>
                         </div>
                         <div>
                             <input type="checkbox" id="dtask3" />
-                            <label htmlFor="dtask1">{} Make contact with Career Coach</label>
+                            <label htmlFor="dtask3">Make contact with Career Coach</label>
                         </div>
                     </div>
                 </div>
