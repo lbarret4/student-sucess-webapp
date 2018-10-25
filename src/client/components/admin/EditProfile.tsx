@@ -55,7 +55,7 @@ export default class EditProfile extends React.Component<any, IEditState> {
                     email: this.state.oldemail,
                     password: this.state.password
                 });
-            console.log(await result);
+            
             if (result) {
                 await json(`/api/users/${User.userid}`,
                     'PUT',

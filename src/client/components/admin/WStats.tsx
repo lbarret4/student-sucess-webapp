@@ -32,10 +32,8 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
 
     async componentWillMount() {
         try {     
-            let Start = moment(moment(this.state.week,'WW').isoWeekday(1),'E').format('YYYY-MM-DD') /* '2018-10-08' */;
-            let End = moment(moment(this.state.week,'WW').isoWeekday(7),'E').format('YYYY-MM-DD') /* '2018-10-14' */;
-            console.log("start",Start);
-            console.log("end",End);
+            let Start = moment(moment(this.state.week,'WW').isoWeekday(1),'E').format('YYYY-MM-DD');
+            let End = moment(moment(this.state.week,'WW').isoWeekday(7),'E').format('YYYY-MM-DD');
             let id = User.userid;
             let data = await json(`/api/blogs/find`, 'POST', { userid: id });
             let linkBlog = await data[0]["heroku_link"];
@@ -56,7 +54,7 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
                     json(`/api/q/numbernetact/${id}/${Start}/${End}`),
                     json(`${await linkBlog}`)
                 ]);
-            let WeeklyStats6 = await this.getNumBlogWeekly(blogs, '2018-10-04', '2018-10-22');           
+            let WeeklyStats6 = await this.getNumBlogWeekly(blogs, Start,End);           
             this.setState(
                 {
                     commits: WeeklyStats1[0].NumsofCommitsaWk||0,

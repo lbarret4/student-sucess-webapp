@@ -7,7 +7,6 @@ const router = express.Router();
 router.get('/:username', async (req, res, next) => {
     
     const username = req.params.username;
-    console.log(username);
     try {
         let  github = await getUserCommitNum(username);
         res.json(await github);

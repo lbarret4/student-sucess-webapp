@@ -58,12 +58,4 @@ export const isLoggedIn= (role?:string)=>{
 return AccessToken != null;
 }
 
-/*  Test scripts 
-console.log('print access token');
-console.log(isLoggedIn());
-console.log('guest',isLoggedIn('guest'));
-console.log('admin',isLoggedIn('admin'));
-console.log("clear",ClearAccessToken());
-console.log(isLoggedIn()); */
-
 export default json;
