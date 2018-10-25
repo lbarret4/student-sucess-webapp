@@ -25,8 +25,8 @@ router.get('/interviewresults/:id/', async (req, res, next) => {
 router.get(`/numberintweek/:id/:start/:end`, async (req, res, next) => {
     try {
         res.json(await Queries.GetNumIntWeek(req.params.id, req.params.start, req.params.end));
-        console.log(req.params.start);
-    } catch (e) {
+        
+    } catch(e) {
         console.log(e);
         res.sendStatus(500);
     }
