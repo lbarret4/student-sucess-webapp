@@ -5,6 +5,7 @@ import DTasks from './DTasks'
 import WTasks from './WTasks'
 import DStats from './DStats'
 import WStats from './WStats'
+import WeeklySummary from './WeeklySummary';
 
 export default class Dashboard extends React.Component<any, IDashboardState> {
 
@@ -41,7 +42,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
 
     render() {
         return (
-            <main className="py-5" style={{ marginLeft: "200px" }}>
+            <main className="py-5" style={{ marginLeft: "200px",backgroundColor:'#eee' }}>
                 <div className="container py-5 text-center ">
                     <p>
                         <h2>Quote of the Day</h2>
@@ -56,6 +57,7 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
                         <WTasks />
 
                     </div>
+                    <WeeklySummary />
 
                     <DStats />
 
