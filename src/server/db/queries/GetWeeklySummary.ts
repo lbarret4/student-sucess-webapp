@@ -1,10 +1,10 @@
 import pool from '../pool';
 
-export default (userid: any, start: any, end: any) => { 
+export default (userid: any) => { 
     return new Promise<IQueryGetWeeklySummary>((resolve, reject) => {
         pool.query(`
         SELECT
-            j.activity_content, j._created
+            j.activity_content as content, j._created as date
         FROM 
             job_activities j 
 		join 
@@ -13,7 +13,7 @@ export default (userid: any, start: any, end: any) => {
             users u on ua.userid = u.id
         WHERE 
             ua.userid = ?`
-        , [userid, start, end], 
+        ,userid, 
             (err, results) => {
             if(err) {
                 reject(err);
