@@ -15,6 +15,8 @@ import NetworkingRouter from './networking';
 import ProgramRouter from './program';
 import ServicesRouter from './services';
 import UserActivitiesRouter from './userActivities';
+import QuoteOfTheDayRouter from './qod';
+import GetQuote from '../../utils/quoteOfDay';
 
 const router = express.Router();
 
@@ -42,5 +44,7 @@ router.use('/networking', NetworkingRouter);
 router.use('/program', ProgramRouter);
 router.use('/services', ServicesRouter);
 router.use('/useractivites', UserActivitiesRouter);
+router.use('/quote', QuoteOfTheDayRouter);
+router.use('/getquote', GetQuote);
 
 export default router;

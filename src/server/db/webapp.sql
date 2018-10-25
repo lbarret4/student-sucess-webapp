@@ -121,7 +121,7 @@ CREATE TABLE `commits` (
   PRIMARY KEY (`id`),
   KEY `fk_github_idx` (`github_id`),
   CONSTRAINT `fk_github` FOREIGN KEY (`github_id`) REFERENCES `github` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `commits` (
 
 LOCK TABLES `commits` WRITE;
 /*!40000 ALTER TABLE `commits` DISABLE KEYS */;
-INSERT INTO `commits` VALUES (1,5,3,'asdfads','2018-08-03 17:31:58'),(2,3,2,'sdfgsdffh','2018-10-08 17:33:20'),(3,5,1,'jtyjrw5','2018-08-27 17:33:20'),(4,12,4,'3jq3kh5','2018-09-29 20:34:47'),(5,15,5,'hf4uih','2018-09-15 20:34:47'),(6,32,6,'h4thqho','2018-09-12 20:34:47'),(7,4,7,'adsfa83','2018-08-10 20:34:47'),(8,21,8,'afneiu3','2018-09-16 20:34:47'),(9,43,9,'jae894y','2018-09-13 20:34:47'),(10,12,10,'nfhan84','2018-10-23 20:34:47'),(11,9,11,'arh78r2','2018-08-12 20:34:47'),(12,15,12,'ufjn89a4','2018-10-01 20:34:47'),(13,18,13,'jrn48a9yt','2018-09-18 20:34:47');
+INSERT INTO `commits` VALUES (1,5,3,'asdfads','2018-08-03 17:31:58'),(2,3,2,'sdfgsdffh','2018-10-08 17:33:20'),(3,5,1,'jtyjrw5','2018-08-27 17:33:20'),(4,12,4,'3jq3kh5','2018-09-29 20:34:47'),(5,15,5,'hf4uih','2018-09-15 20:34:47'),(6,32,6,'h4thqho','2018-09-12 20:34:47'),(7,4,7,'adsfa83','2018-08-10 20:34:47'),(8,21,8,'afneiu3','2018-09-16 20:34:47'),(9,43,9,'jae894y','2018-09-13 20:34:47'),(10,12,10,'nfhan84','2018-10-23 20:34:47'),(11,9,11,'arh78r2','2018-08-12 20:34:47'),(12,15,12,'ufjn89a4','2018-10-01 20:34:47'),(13,18,13,'jrn48a9yt','2018-09-18 20:34:47'),(14,1,1,'28d5c3','2018-10-24 11:15:35'),(15,1,1,'28d5c3','2018-10-24 11:16:16'),(16,1,1,'28d5c3','2018-10-24 11:19:54'),(17,1,1,'28d5c3','2018-10-24 11:22:38'),(18,1,1,'28d5c3','2018-10-24 11:23:02'),(19,1,1,'28d5c3','2018-10-24 11:25:46'),(20,1,1,'28d5c3','2018-10-24 11:25:58'),(21,1,1,'28d5c3','2018-10-24 11:26:02'),(22,1,1,'28d5c3','2018-10-24 11:32:52');
 /*!40000 ALTER TABLE `commits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +162,7 @@ CREATE TABLE `employer_info` (
 
 LOCK TABLES `employer_info` WRITE;
 /*!40000 ALTER TABLE `employer_info` DISABLE KEYS */;
-INSERT INTO `employer_info` VALUES (3,'John Doe','Test Company','123-456-7890','123 Test Street',NULL,'Birmingham','AL','12345','2018-08-22 08:15:10'),(4,'Jane Doe','Another Company','987-654-3210','123 Another Street',NULL,'Nashville','TN','56789','2018-08-18 08:15:10'),(5,'Joe Blow','Company 3','555-555-5555','555 Test Data Dr',NULL,'San Diego','CA','92145','2018-09-19 08:15:10'),(6,'Test Person','Company 4','111-111-1111','111 Another Street',NULL,'Birmingham','AL','12345','2018-10-04 08:18:05'),(16,'Sasha Schneider','Siemens AG','342-710-2078','7667 Bedford Road',NULL,'Palatine','IL','60067','2018-09-22 20:11:13'),(17,'Bo Henderson','AT&T','414-302-9785','852 Joy Ridge Ave.',NULL,'Mcminnville','TN','37110','2018-09-28 20:11:13'),(18,'Lexi Lamb','Cartier SA','668-640-3655','9341 North White Avenue',NULL,'Covington','GA','30014','2018-08-14 20:11:13'),(19,'Beau Mahoney','Avon','897-964-6555','26 Mill Pond Dr.',NULL,'Kenosha','WI','53140','2018-10-22 20:11:13'),(20,'Alexzander Mckee','Hewlett-Packard','416-272-3324','763 Clark St',NULL,'Lacey','WA','98503','2018-09-17 20:11:13'),(21,'Allyson Summers','Volkswagen Group','851-255-4732','874 Monroe St',NULL,'Cookeville','TN','38501','2018-09-23 20:11:13'),(22,'Asa Young','SAP','546-725-5118','1 SW Jones Rd',NULL,'Zionsville','IN','46077','2018-10-03 20:11:13'),(23,'Lila Robertson','Bank of America','674-637-6310','819 Cedar Swamp Rd',NULL,'Drexel Hill','PA','19026','2018-09-25 20:11:13'),(24,'Zack Sims','Johnson & Johnson','920-832-9274','651 N. Pumpkin Hill Street',NULL,'Barberton','OH','44203','2018-08-17 20:11:13'),(25,'Keshawn Hughes','Morgan Stanley','307-448-3663','9704 Pheasant Drive',NULL,'Clearwater','FL','33756','2018-10-18 20:11:13'),(26,'James','Cool Company','555-555-5555','123 Cool Company Street','','Birmingham','st','35123','2018-08-16 12:16:09'),(27,'New Contact','New Company','111-111-1111','111 New Company Street','','Birmingham,'st','11111','2018-10-23 12:18:34'),(28,'Tamara','Tamara\'s Playhouse','555-555-5555','123 Tamaras Playhouse Dr','','Odenville','st','35120','2018-09-15 12:48:49');
+INSERT INTO `employer_info` VALUES (3,'John Doe','Test Company','123-456-7890','123 Test Street',NULL,'Birmingham','AL','12345','2018-08-22 08:15:10'),(4,'Jane Doe','Another Company','987-654-3210','123 Another Street',NULL,'Nashville','TN','56789','2018-08-18 08:15:10'),(5,'Joe Blow','Company 3','555-555-5555','555 Test Data Dr',NULL,'San Diego','CA','92145','2018-09-19 08:15:10'),(6,'Test Person','Company 4','111-111-1111','111 Another Street',NULL,'Birmingham','AL','12345','2018-10-04 08:18:05'),(16,'Sasha Schneider','Siemens AG','342-710-2078','7667 Bedford Road',NULL,'Palatine','IL','60067','2018-09-22 20:11:13'),(17,'Bo Henderson','AT&T','414-302-9785','852 Joy Ridge Ave.',NULL,'Mcminnville','TN','37110','2018-09-28 20:11:13'),(18,'Lexi Lamb','Cartier SA','668-640-3655','9341 North White Avenue',NULL,'Covington','GA','30014','2018-08-14 20:11:13'),(19,'Beau Mahoney','Avon','897-964-6555','26 Mill Pond Dr.',NULL,'Kenosha','WI','53140','2018-10-22 20:11:13'),(20,'Alexzander Mckee','Hewlett-Packard','416-272-3324','763 Clark St',NULL,'Lacey','WA','98503','2018-09-17 20:11:13'),(21,'Allyson Summers','Volkswagen Group','851-255-4732','874 Monroe St',NULL,'Cookeville','TN','38501','2018-09-23 20:11:13'),(22,'Asa Young','SAP','546-725-5118','1 SW Jones Rd',NULL,'Zionsville','IN','46077','2018-10-03 20:11:13'),(23,'Lila Robertson','Bank of America','674-637-6310','819 Cedar Swamp Rd',NULL,'Drexel Hill','PA','19026','2018-09-25 20:11:13'),(24,'Zack Sims','Johnson & Johnson','920-832-9274','651 N. Pumpkin Hill Street',NULL,'Barberton','OH','44203','2018-08-17 20:11:13'),(25,'Keshawn Hughes','Morgan Stanley','307-448-3663','9704 Pheasant Drive',NULL,'Clearwater','FL','33756','2018-10-18 20:11:13'),(26,'James','Cool Company','555-555-5555','123 Cool Company Street','','Birmingham','st','35123','2018-08-16 12:16:09'),(27,'New Contact','New Company','111-111-1111','111 New Company Street','','Birmingham','st','11111','2018-10-23 12:18:34'),(28,'Tamara','Tamaras Playhouse','555-555-5555','123 Tamaras Playhouse Dr','','Odenville','st','35120','2018-09-15 12:48:49');
 /*!40000 ALTER TABLE `employer_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,6 +310,30 @@ INSERT INTO `program` VALUES (1,'atomic'),(2,'molecular'),(3,'catalyst');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `qotd`
+--
+
+DROP TABLE IF EXISTS `qotd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qotd` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) NOT NULL,
+  `_created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qotd`
+--
+
+LOCK TABLES `qotd` WRITE;
+/*!40000 ALTER TABLE `qotd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `qotd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `services`
 --
 
@@ -349,7 +373,7 @@ CREATE TABLE `tokens` (
   PRIMARY KEY (`id`),
   KEY `fk_userid_idx` (`userid`),
   CONSTRAINT `fk_userid` FOREIGN KEY (`userid`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +382,7 @@ CREATE TABLE `tokens` (
 
 LOCK TABLES `tokens` WRITE;
 /*!40000 ALTER TABLE `tokens` DISABLE KEYS */;
-INSERT INTO `tokens` VALUES (1,1,NULL,'2018-11-16 15:29:48','2018-10-17 15:29:47'),(2,1,NULL,'2018-11-16 15:30:22','2018-10-17 15:30:22'),(3,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjMsInVuaXF1ZSI6IjFmMmEyNGQyMGI5YTgyNzY4MzZkMmQ3MzA2ZDU3YmVkNTIzNmY3ZTQ4OGU1MWY3MTVmNTZlMGE3YTM3MmRiNjYiLCJpYXQiOjE1Mzk4MDQ2OTB9.xmKNToD1ots7mDLv0-mUqLEOJb6UDCAqTsCQc1Ake8c','2018-11-16 15:31:30','2018-10-17 15:31:30'),(4,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjQsInVuaXF1ZSI6ImM2Y2RjY2IyZmIyNDU2NzgzNGI3MjlkYjQ1NzRhNmQ0ZGI5YmFjNmY2ODg1MjUxNzlhYjc2NTc0MzAwOTgyODgiLCJpYXQiOjE1NDAyNDM3MjJ9.YlFZwxDLv_3OKhgMJY940vW6M8Ney9vyZVr4zXCBFaw','2018-11-21 16:28:42','2018-10-22 16:28:42'),(5,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjUsInVuaXF1ZSI6ImM5ODNhNDg3OGQ5YmZmNTI1ZWY5YWI2ZmYzNmEwNzkzOGZlM2MyZmM2YWYyY2I3NjllZGJkNDExOWNmMmM0OTciLCJpYXQiOjE1NDAyNDM4NjN9.IWw7fE5LCm8Iq5I8dktPXO3l3_kTn0ADOdEGMBbUT50','2018-11-22 12:50:04','2018-10-22 16:31:03'),(6,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjYsInVuaXF1ZSI6IjhlNGQ1N2E5NTE2ZGZhMTdjNGUwNTZiZjQzNmRjZTNmYTNmM2E1YjQ0YjA3MzAwOTY2Y2RjNjllMzczMDVhMWIiLCJpYXQiOjE1NDAyNDM5MDl9.oEiQhGpG1tqLeWh8L9TRpQ6XUTgF1Z22bC7n01Uryes','2018-11-21 16:31:50','2018-10-22 16:31:49'),(7,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjcsInVuaXF1ZSI6Ijc5MGFiMDNkOTJjYmFmMzI3MmU1YzI1YWRmYTYzYTIyOTI1ZGM2MzQzNjMwYWFmNzQ0NjEwNDBlZGFiMDRjNjgiLCJpYXQiOjE1NDAzMTcwMjl9.Q5Pr-KpJAIWhTS1HRUt-z-D8J16Z9ns2UNyshMT65zk','2018-11-22 12:50:30','2018-10-23 12:50:29'),(8,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjgsInVuaXF1ZSI6ImVmMjdkOGM5NjExOGYxNmE1ZDhhZTQ3M2UyMGI0ZWY2YTU2YWM1YzkwN2Y4YjEzNWRjMjgzOGQ5NzIzMThiZDkiLCJpYXQiOjE1NDAzOTI3Mzh9.0e7d3b5LvdUW1dHs5Hxt2BRuC7C-2WJDOvuPfo1apv4','2018-11-23 09:52:29','2018-10-24 09:52:18');
+INSERT INTO `tokens` VALUES (1,1,NULL,'2018-11-16 15:29:48','2018-10-17 15:29:47'),(2,1,NULL,'2018-11-16 15:30:22','2018-10-17 15:30:22'),(3,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjMsInVuaXF1ZSI6IjFmMmEyNGQyMGI5YTgyNzY4MzZkMmQ3MzA2ZDU3YmVkNTIzNmY3ZTQ4OGU1MWY3MTVmNTZlMGE3YTM3MmRiNjYiLCJpYXQiOjE1Mzk4MDQ2OTB9.xmKNToD1ots7mDLv0-mUqLEOJb6UDCAqTsCQc1Ake8c','2018-11-16 15:31:30','2018-10-17 15:31:30'),(4,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjQsInVuaXF1ZSI6ImM2Y2RjY2IyZmIyNDU2NzgzNGI3MjlkYjQ1NzRhNmQ0ZGI5YmFjNmY2ODg1MjUxNzlhYjc2NTc0MzAwOTgyODgiLCJpYXQiOjE1NDAyNDM3MjJ9.YlFZwxDLv_3OKhgMJY940vW6M8Ney9vyZVr4zXCBFaw','2018-11-21 16:28:42','2018-10-22 16:28:42'),(5,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjUsInVuaXF1ZSI6ImM5ODNhNDg3OGQ5YmZmNTI1ZWY5YWI2ZmYzNmEwNzkzOGZlM2MyZmM2YWYyY2I3NjllZGJkNDExOWNmMmM0OTciLCJpYXQiOjE1NDAyNDM4NjN9.IWw7fE5LCm8Iq5I8dktPXO3l3_kTn0ADOdEGMBbUT50','2018-11-22 12:50:04','2018-10-22 16:31:03'),(6,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjYsInVuaXF1ZSI6IjhlNGQ1N2E5NTE2ZGZhMTdjNGUwNTZiZjQzNmRjZTNmYTNmM2E1YjQ0YjA3MzAwOTY2Y2RjNjllMzczMDVhMWIiLCJpYXQiOjE1NDAyNDM5MDl9.oEiQhGpG1tqLeWh8L9TRpQ6XUTgF1Z22bC7n01Uryes','2018-11-21 16:31:50','2018-10-22 16:31:49'),(7,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjcsInVuaXF1ZSI6Ijc5MGFiMDNkOTJjYmFmMzI3MmU1YzI1YWRmYTYzYTIyOTI1ZGM2MzQzNjMwYWFmNzQ0NjEwNDBlZGFiMDRjNjgiLCJpYXQiOjE1NDAzMTcwMjl9.Q5Pr-KpJAIWhTS1HRUt-z-D8J16Z9ns2UNyshMT65zk','2018-11-22 12:50:30','2018-10-23 12:50:29'),(8,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjgsInVuaXF1ZSI6ImVmMjdkOGM5NjExOGYxNmE1ZDhhZTQ3M2UyMGI0ZWY2YTU2YWM1YzkwN2Y4YjEzNWRjMjgzOGQ5NzIzMThiZDkiLCJpYXQiOjE1NDAzOTI3Mzh9.0e7d3b5LvdUW1dHs5Hxt2BRuC7C-2WJDOvuPfo1apv4','2018-11-23 11:15:35','2018-10-24 09:52:18'),(9,1,'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjEsImFjY2Vzc3Rva2VuaWQiOjksInVuaXF1ZSI6ImY0YjM3ZTc3NDk0MzA3YmU5NDhhZTBlNTE0NzYyZjU3NDliZWE1OGJhMTNhNDg1YjA5NzdjOTE5YjgwMmU0MzYiLCJpYXQiOjE1NDAzOTc3NzV9.N1PrmMQMpivewqCxCkYbOfIOsW0hrKxfPJe9dwsEaJQ','2018-11-23 23:38:57','2018-10-24 11:16:15');
 /*!40000 ALTER TABLE `tokens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,4 +462,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-24 10:44:43
+-- Dump completed on 2018-10-25  1:02:50

@@ -251,3 +251,15 @@ export interface IUserActivities {
     userid?: number;
     activityid?: number;
 };
+
+export const QOTD = new Table<IQOTD>(pool, 'qotd', {
+    id: mysql.Types.INT24,
+    content: mysql.Types.VARCHAR,
+    _created: mysql.Types.DATETIME
+});
+
+export interface IQOTD {
+    id?: number;
+    content?: string;
+    _created?: Date;
+};

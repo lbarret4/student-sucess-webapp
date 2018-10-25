@@ -27,11 +27,11 @@ export default class DStats extends React.Component<IDStatsProps, IDStatsState> 
         try {
             let Start = this.state.Start;
             let End = this.state.End;
-            console.log(Start);
-            console.log(End);
+            // console.log(Start);
+            // console.log(End);
 
             let [dailyStats] = await Promise.all([json(`/api/q/commitnumber/${User.userid}/${Start}/${End}`)]);
-            console.log(dailyStats);
+            // console.log(dailyStats);
             this.setState({ commits: dailyStats[0].number_commits});
         } catch (e) {
             throw (e);

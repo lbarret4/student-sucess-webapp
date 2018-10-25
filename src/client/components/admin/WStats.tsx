@@ -23,8 +23,8 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
         super(props);
         this.state = {
             commits: '',
-            Start: /* moment().format('YYYY-MM-DD') */'2018-10-10',
-            End: /* moment().add(1, 'w').format('YYYY-MM-DD') */'2018-10-17',
+            Start: moment().format('YYYY-MM-DD'),
+            End: moment().add(1, 'w').format('YYYY-MM-DD'),
             posts: '',
             jobsapps: '',
             netactivites: '',
@@ -37,8 +37,8 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
         try {
             let Start = this.state.Start;
             let End = this.state.End;
-            console.log(Start);
-            console.log(End);
+            // console.log(Start);
+            // console.log(End);
 
             let [WeeklyStats1, WeeklyStats2, WeeklyStats3, WeeklyStats4, WeeklyStats5, WeeklyStats6] = await Promise.all(
                 [json(`/api/q/commitnumber/${User.userid}/${Start}/${End}`),
@@ -49,7 +49,7 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
                 json(`https://testing-boiler.herokuapp.com/api/blogs`)
                 ])
              
-            console.log(WeeklyStats1, WeeklyStats2, WeeklyStats3, WeeklyStats4, WeeklyStats5, WeeklyStats6);
+            // console.log(WeeklyStats1, WeeklyStats2, WeeklyStats3, WeeklyStats4, WeeklyStats5, WeeklyStats6);
              this.setState({ commits: WeeklyStats1[0].number_commits, jobsapps: WeeklyStats3[0].count, netactivites: WeeklyStats5[0].activitycount, mockinterviews: WeeklyStats4[0].NumMockInt, interviews: WeeklyStats2[0].NumberOfInterviews, posts: WeeklyStats6.length});
         } catch (e) {
             throw (e);
