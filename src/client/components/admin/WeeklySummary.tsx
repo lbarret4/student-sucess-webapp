@@ -91,8 +91,8 @@ export default class WeeklySummary extends React.Component<IWeeklySummaryProps, 
     }
 
     handlesClick(e: any) {
-        e.preventDefault();
-        let targetName = e.target.name;
+        e.preventDefault();        
+        let targetName = e.currentTarget.name;
         let { item1, item2, item3 } = this.state;
         let items = { item1, item2, item3 };        
         if (targetName.includes("item")) {
