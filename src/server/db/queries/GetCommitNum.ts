@@ -4,7 +4,7 @@ export default (userid: any) => {
     return new Promise<IQueryGetCommitNum>((resolve, reject) => {
         pool.query(`
         SELECT
-            c.number_commits, c.hash,c._created
+            c.id, c.number_commits, c.hash,c._created
         FROM 
             Commits c 
         join 
