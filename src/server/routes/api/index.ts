@@ -15,6 +15,7 @@ import NetworkingRouter from './networking';
 import ProgramRouter from './program';
 import ServicesRouter from './services';
 import UserActivitiesRouter from './userActivities';
+import GithubRepoRouter from './repo';
 import QuoteOfTheDayRouter from './qod';
 import GetQuote from '../../utils/quoteOfDay';
 
