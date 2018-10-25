@@ -3,8 +3,7 @@ import json, { User } from '../../utils/api';
 import * as moment from 'moment';
 
 interface IWStatsState {
-    End: any;
-    Start: any;
+    week:any;
     commits: any;
     jobsapps: any;
     mockinterviews: any;
@@ -22,8 +21,7 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
         super(props);
         this.state = {
             commits: 'loading...',
-            Start: /* moment().format('YYYY-MM-DD') */'2018-10-10',
-            End: /* moment().add(1, 'w').format('YYYY-MM-DD') */'2018-10-24',
+            week:moment().isoWeek(),         
             posts: 'loading...',
             jobsapps: 'loading...',
             netactivites: 'loading...',
@@ -33,9 +31,11 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
     };
 
     async componentWillMount() {
-        try {
-            let Start = this.state.Start;
-            let End = this.state.End;
+        try {     
+            let Start = moment(moment(this.state.week,'WW').isoWeekday(1),'E').format('YYYY-MM-DD') /* '2018-10-08' */;
+            let End = moment(moment(this.state.week,'WW').isoWeekday(7),'E').format('YYYY-MM-DD') /* '2018-10-14' */;
+            console.log("start",Start);
+            console.log("end",End);
             let id = User.userid;
             let data = await json(`/api/blogs/find`, 'POST', { userid: id });
             let linkBlog = await data[0]["heroku_link"];
@@ -71,7 +71,7 @@ export default class WStats extends React.Component<IWStatsProps, IWStatsState> 
         }
     }
 
-    async getNumBlogWeekly(blogs: any, start: any, end: any) {
+    async getNumBlogWeekly(blogs: any, start: moment.MomentInput, end: moment.MomentInput) {
         try {
             let publishedBlogs = await blogs.filter((blog: any) => {
                 let publishedTime = blog["__created"];
