@@ -45,11 +45,19 @@ export default class DStats extends React.Component<IDStatsProps, IDStatsState> 
                     json(`/api/q/commitnumber/${id}/`),
                     json(`${await linkBlog}`)
                 ]);
+            let [commits, hash, post, publishedDate] = await Promise.all(
+                [
+                    dailyStats1.slice(-1)[0]["number_commits"],
+                    dailyStats1.slice(-1)[0]["hash"], 
+                    dailyStats2[1].body,
+                    moment(dailyStats2[1]["__created"]).format('dddd, MMMM Do YYYY, h:mm a')
+                ]
+            );
             this.setState({
-                commits: dailyStats1.splice(-1)[0].number_commits,
-                hash: dailyStats1.splice(-1)[0].hash,
-                post: dailyStats2[1].body,
-                publishedDate: moment(dailyStats2[1]["__created"]).format('dddd, MMMM Do YYYY, h:mm a')
+                commits,
+                hash,
+                post,
+                publishedDate
             });
         } catch (e) {
             throw (e);
