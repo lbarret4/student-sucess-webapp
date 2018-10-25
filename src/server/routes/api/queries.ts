@@ -22,6 +22,15 @@ router.get('/interviewresults/:id/', async (req, res, next) => {
     }
 });
 
+router.get('/weeklysummary/:id/', async (req, res, next) => {
+    try {
+        res.json(await Queries.GetWeeklySummary(req.params.id));
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
 router.get(`/numberintweek/:id/:start/:end`, async (req, res, next) => {
     try {
         res.json(await Queries.GetNumIntWeek(req.params.id, req.params.start, req.params.end));
@@ -59,14 +68,6 @@ router.get('/numbernetact/:id/:start/:end', async (req, res, next) => {
     }
 });
 
-router.get('/weeklysummary/:id/:start/:end', async (req, res, next) => {
-    try {
-        res.json(await Queries.GetWeeklySummary(req.params.id, req.params.start, req.params.end));
-    } catch (e) {
-        console.log(e);
-        res.sendStatus(500);
-    }
-});
 
 router.get('/numbercommitwk/:id/:start/:end', async (req, res, next) => {
     try {
