@@ -70,7 +70,7 @@ export default class WTasks extends React.Component<any, IWTasks> {
                             <label htmlFor="wtask1">Submit Three Applications</label>
                         </div>
                         <div>
-                            {this.w1True() ? <input type="checkbox" id="wtask2" checked onChange={(e) => { this.wTask2() }} /> : <input type="checkbox" id="wtask2" onChange={(e) => { this.wTask2() }} />}
+                            {this.w2True() ? <input type="checkbox" id="wtask2" checked onChange={(e) => { this.wTask2() }} /> : <input type="checkbox" id="wtask2" onChange={(e) => { this.wTask2() }} />}
                             <label htmlFor="wtask2">Post you your Developer Blog</label>
                         </div>
                     </div>
