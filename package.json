@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+},
   "scripts": {
     "build:postcss": "npx postcss ./public/css/styles.css -o ./public/css/styles.min.css -u autoprefixer cssnano",
     "build:scss": "npx node-sass src/client/scss/main.scss public/css/styles.css",
