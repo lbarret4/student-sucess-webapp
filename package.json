@@ -17,7 +17,8 @@
     "watch:postcss": "npm run build:postcss -- -w",
     "watch:scss": "npm run build:scss -- --watch src/client/scss --recursive",
     "watch:server": "npx nodemon dist/server.js -w dist",
-    "watch:ts": "npm run build:ts -- -w"
+    "watch:ts": "npm run build:ts -- -w",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -71,13 +72,13 @@
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
     "webpack-node-externals": "^1.7.2",
-    "yup": "^0.26.6"
-  },
-  "devDependencies": {
+    "yup": "^0.26.6",
     "autoprefixer": "^9.1.5",
     "cssnano": "^4.1.4",
     "node-sass": "^4.9.3",
-    "nodemon": "^1.18.4",
     "postcss-cli": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }
