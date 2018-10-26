@@ -8,12 +8,6 @@ interface SummaryItem{
     body: string,
     id: number
 }
-interface IWeeklySummaryState {
-    item1:SummaryItem;
-    item2:SummaryItem;
-    item3:SummaryItem;
-    summaries:[]
-}
 
 interface IWeeklySummaryProps {}
 
