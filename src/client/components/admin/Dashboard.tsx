@@ -23,16 +23,16 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
     async componentWillMount() {
         await this.getCommits();        
 
-            try {
-                let res = await fetch(`http://quotes.rest/qod`, { headers: { 'Accept': "application/json" } });
-                let someCrap = await res.json();
-                let quote = await someCrap.contents.quotes[0];
-                this.setState({
-                    quote
-                });
-            } catch (error) {
-                console.log(error);
-            }
+            // try {
+            //     let res = await fetch(`http://quotes.rest/qod`, { headers: { 'Accept': "application/json" } });
+            //     let someCrap = await res.json();
+            //     let quote = await someCrap.contents.quotes[0];
+            //     this.setState({
+            //         quote
+            //     });
+            // } catch (error) {
+            //     console.log(error);
+            // }
     }
 
     async getCommits() {
@@ -65,8 +65,10 @@ export default class Dashboard extends React.Component<any, IDashboardState> {
                 <div className="container py-5 text-center ">
                     <p>
                         <h2>Quote of the Day</h2>
-                        <h3>"{this.state.quote.quote}"</h3>
-                        <h6> - {this.state.quote.author}</h6>
+                        {/* <h3>"{this.state.quote.quote}"</h3>
+                        <h6> - {this.state.quote.author}</h6> */}
+                        <h2>"Let us think the unthinkable, let us do the undoable, let us prepare to grapple with the ineffable itself, and see if we may not eff it after all."</h2>
+                        <h6>- Douglas Adams</h6>
                         <p style={{ fontSize: "xx-small" }}>courtesy of https://theysaidso.com/api/</p>
                     </p>
                     <div className="card-deck d-flex justify-content-center">
