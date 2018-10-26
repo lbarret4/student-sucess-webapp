@@ -8,7 +8,7 @@ import Login from './admin/Login';
 import Register from './admin/Register';
 import Compose from './admin/Compose';
 import Footer from './shared/Footer';
-import PrivateRoute from './admin/privateRoute';
+import PrivateRoute from './admin/PrivateRoute';
 import Logout from './admin/Logout';
 import InputForms from './admin/InputForms';
 import Dashbord from './admin/Dashboard';
